@@ -1,0 +1,9 @@
+@use "../abstracts/variables";
+
+body {
+    font-family: variables.$font-primary;
+    background-color: variables.$color-primary;
+    
+    color: variables.$color-font;
+    overflow-x: hidden;
+}

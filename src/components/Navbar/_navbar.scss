@@ -1,0 +1,25 @@
+@use "../../styles/abstracts/variables";
+
+.navbar body {
+    font-family: variables.$font-primary;
+    color: variables.$color-font-gold;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+    align-content: center;
+
+    margin-top: 1rem;
+    font-size: 1.25rem;
+}
+
+.navbar button {
+    text-shadow: 2px 2px 2px black;
+}
+
+.navbar button:hover {
+    color: variables.$color-secondary;
+}
