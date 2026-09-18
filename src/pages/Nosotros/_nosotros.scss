@@ -1,0 +1,28 @@
+@use "../../styles/abstracts/variables";
+
+.nosotros {
+    font-size: 2rem;
+    color: variables.$color-font-gold;
+
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.nosotros img {
+    width: 20%;
+}
+
+.heroNosotros {
+    font-size: 2.5rem;
+    color: white;
+
+    margin-bottom: 10rem;
+}
+
+iframe {
+    display: block;
+    width: 80%;
+
+    margin: 5rem auto;
+    border-radius: 12px;
+}

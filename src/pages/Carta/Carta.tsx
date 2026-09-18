@@ -6,6 +6,8 @@ import "./_carta.scss";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
+import 'animate.css';
+
 type Categoria =
   | "Cafetería"
   | "Cosas Dulces"
@@ -68,8 +70,8 @@ const categorias: Categoria[] = [
 
 const Carta = () => {
 
-  const [CategoriaSeleccionada, setCategoriaSeleccionada] =
-    useState<Categoria>("Cafetería")
+const [CategoriaSeleccionada, setCategoriaSeleccionada] =
+  useState<Categoria | null>(null)
 
   const [comidas, setComidas] = useState<Comida[]>([])
 
@@ -160,7 +162,7 @@ const Carta = () => {
 
         <div
           ref={categoriasRef}
-          className={`cartaCategorias ${
+          className={`cartaCategorias carta animate__animated animate__backInRight ${
             arrastrando ? "arrastrando" : ""
           }`}
           onMouseDown={handleMouseDown}
@@ -210,6 +212,8 @@ const Carta = () => {
           </div>
 
         </section>
+
+        <h6 className="h6 animate__animated animate__backInUp">¡Elegí una categoría y comenzá a explorar!</h6>
 
       </main>
 

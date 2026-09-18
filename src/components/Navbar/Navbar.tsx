@@ -8,9 +8,8 @@ const Navbar = () => {
     <nav className="navbar animate__animated animate__backInUp">
       <Link to="/">Inicio</Link>
       <Link to="/carta">Carta</Link>
-      <button>Reservaciones</button>
-      <button>Nosotros</button>
-      <button>Contacto</button>
+      <Link to="/reservaciones">Reservaciones</Link>
+      <Link to="/nosotros">Nosotros</Link>
       <button>Sesión</button>
     </nav>
   )

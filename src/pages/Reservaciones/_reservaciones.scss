@@ -1,0 +1,38 @@
+@use "../../styles/abstracts/variables";
+
+.reservaciones section {
+    font-size: 2rem;
+    text-align: center;
+
+    margin-top: 10rem;
+}
+
+.reservaciones p {
+    margin-top: 1.5rem;
+}
+
+.reservaciones section h6 {
+    font-size: 2.5rem;
+    margin-top: 8rem;
+}
+
+.reservaciones a {
+    display: inline-block;
+    margin: 5rem auto;
+
+    font-family: variables.$font-secundary;
+    font-size: 2.5rem;
+
+    padding: 1rem;
+    background-color: variables.$color-font-gold;
+
+    border-radius: 12px;
+    color: black;
+
+    text-decoration: none;
+}
+
+.reservaciones a:hover {
+    box-shadow: 0px 0px 15px white;
+    cursor: pointer;
+}
