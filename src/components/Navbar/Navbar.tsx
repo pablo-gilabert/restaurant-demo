@@ -1,17 +1,166 @@
-import { Link } from "react-router-dom";
+import {
+  useEffect,
+  useState,
+} from "react"
 
-import "./_navbar.scss";
-import 'animate.css';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom"
+
+import {
+  HiMenu,
+  HiX,
+} from "react-icons/hi"
+
+import Mathilde from "../../assets/img/icons/mathilde.png"
+
+import "./_navbar.scss"
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    })
+  }, [location.pathname])
+
+  const toggleMenu = () => {
+    setIsMenuOpen((previousState) => !previousState)
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+  }
+
+  const handleNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    path: string
+  ) => {
+    event.preventDefault()
+
+    closeMenu()
+
+    if (location.pathname === path) {
+      window.location.reload()
+      return
+    }
+
+    navigate(path)
+  }
+
   return (
-    <nav className="navbar animate__animated animate__backInUp">
-      <Link to="/">Inicio</Link>
-      <Link to="/carta">Carta</Link>
-      <Link to="/reservaciones">Reservaciones</Link>
-      <Link to="/nosotros">Nosotros</Link>
-      <button>Sesión</button>
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="navbarContent">
+
+          <div className="navbarHeader">
+
+            <Link
+              to="/"
+              className="navbarLogoLink"
+              onClick={(event) =>
+                handleNavigation(event, "/")
+              }
+            >
+              <img
+                className="navbarLogo"
+                src={Mathilde}
+                alt="Mathilde Resto"
+              />
+            </Link>
+
+            <button
+              type="button"
+              className="navbarToggle"
+              onClick={toggleMenu}
+              aria-label={
+                isMenuOpen
+                  ? "Cerrar menú"
+                  : "Abrir menú"
+              }
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <HiX />
+              ) : (
+                <HiMenu />
+              )}
+            </button>
+
+          </div>
+
+          <div
+            className={`navbarMenu ${
+              isMenuOpen
+                ? "navbarMenu--open"
+                : ""
+            }`}
+          >
+
+            <Link
+              to="/"
+              onClick={(event) =>
+                handleNavigation(event, "/")
+              }
+            >
+              Inicio
+            </Link>
+
+            <Link
+              to="/menu"
+              onClick={(event) =>
+                handleNavigation(event, "/menu")
+              }
+            >
+              Carta
+            </Link>
+
+            <Link
+              to="/reservations"
+              onClick={(event) =>
+                handleNavigation(
+                  event,
+                  "/reservations"
+                )
+              }
+            >
+              Reservaciones
+            </Link>
+
+            <Link
+              to="/about"
+              onClick={(event) =>
+                handleNavigation(
+                  event,
+                  "/about"
+                )
+              }
+            >
+              Nosotros
+            </Link>
+
+            <button
+              type="button"
+              onClick={closeMenu}
+            >
+              Sesión
+            </button>
+
+          </div>
+
+        </div>
+      </nav>
+
+      <div className="navbarSpacer" />
+    </>
   )
 }
 
