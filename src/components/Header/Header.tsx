@@ -13,7 +13,7 @@ const Header = () => {
 
       <header className="header">
 
-        <img src={Mathilde} alt="Mathilde Resto" className="logo animate__animated animate__backInRight"/>
+        <img src={Mathilde} alt="Mathilde Resto Logo" className="logo animate__animated animate__backInRight"/>
 
         <h1 className="h1 animate__animated animate__backInLeft">Mathilde Resto</h1>
 

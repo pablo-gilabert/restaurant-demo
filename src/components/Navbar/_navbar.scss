@@ -16,10 +16,11 @@
     font-size: 1.25rem;
 }
 
-.navbar button {
+.navbar a {
     text-shadow: 2px 2px 2px black;
+    text-decoration: none;
 }
 
-.navbar button:hover {
+.navbar a:hover {
     color: variables.$color-secondary;
 }

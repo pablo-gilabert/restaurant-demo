@@ -10,9 +10,6 @@ import CafeMedialunas from "../../assets/img/cafe/cafeMedialunas.jpg"
 import Cheesecake from "../../assets/img/postres/cheesecake pistacho.jpg"
 import CheesecakeClasico from "../../assets/img/postres/cheesecakeclasico.jpg"
 import Chocotorta from "../../assets/img/postres/chocotorta.jpg"
-import Dubai from "../../assets/img/postres/dubaicombo.jpg"
-import Tiramisu from "../../assets/img/postres/tiramisu.jpg"
-import TortaOreo from "../../assets/img/postres/tortaoreo.jpg"
 
 import BifeChorizo from "../../assets/img/principales/bifeChorizoProvenzal.jpg"
 import BifeMalbec from "../../assets/img/principales/bifeMalbec.jpg"
@@ -46,9 +43,6 @@ const Main = () => {
             <img src={Cheesecake} alt="Cheesecake de pistacho."/>
             <img src={CheesecakeClasico} alt="Cheesecake."/>
             <img src={Chocotorta} alt="Chocotorta."/>
-            <img src={Dubai} alt="Combo Dubai."/>
-            <img src={Tiramisu} alt="Tiramisú."/>
-            <img src={TortaOreo} alt="Torta Oreo."/>
 
         </section>
 

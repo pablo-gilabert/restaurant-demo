@@ -1,13 +1,13 @@
+import { Link } from "react-router-dom";
+
 import "./_navbar.scss";
-import "../../styles/base/_global.scss"
-import "../../styles/base/_reset.scss"
 import 'animate.css';
 
 const Navbar = () => {
   return (
     <nav className="navbar animate__animated animate__backInUp">
-      <button>Inicio</button>
-      <button>Carta</button>
+      <Link to="/">Inicio</Link>
+      <Link to="/carta">Carta</Link>
       <button>Reservaciones</button>
       <button>Nosotros</button>
       <button>Contacto</button>
