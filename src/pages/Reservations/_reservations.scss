@@ -6,8 +6,9 @@
   padding: 2rem 1rem;
 }
 
-.reservations section {
+.reservationsContent {
   display: flex;
+
   flex-direction: column;
   align-items: center;
 
@@ -16,10 +17,11 @@
   color: variables.$color-font;
 
   font-size: 1.5rem;
+
   text-align: center;
 }
 
-.reservations p {
+.reservationsContent p {
   margin-top: 1.25rem;
 }
 
@@ -46,27 +48,36 @@
   box-shadow: 0 0 15px white;
 }
 
-/* Tablet */
+/* =================================
+   TABLET
+   ================================= */
+
 @media (min-width: 768px) {
   .reservations {
     padding: 3rem 2rem;
   }
 
-  .reservations section {
+  .reservationsContent {
     margin-top: 8rem;
+
     font-size: 1.75rem;
   }
 
   .reservationButton {
     margin-top: 5rem;
+
     font-size: 1.75rem;
   }
 }
 
-/* Notebook */
+/* =================================
+   NOTEBOOK
+   ================================= */
+
 @media (min-width: 1024px) {
-  .reservations section {
+  .reservationsContent {
     margin-top: 10rem;
+
     font-size: 2rem;
   }
 
@@ -75,14 +86,18 @@
   }
 }
 
-/* Desktop */
-@media (min-width: 1440px) {
-  .reservations section {
+/* =================================
+   DESKTOP
+   ================================= */
+
+@media (min-width: 1280px) {
+  .reservationsContent {
     font-size: 2.25rem;
   }
 
   .reservationButton {
     padding: 1rem 1.5rem;
+
     font-size: 2.5rem;
   }
 }

@@ -1,11 +1,9 @@
 import {
-  useEffect,
   useState,
 } from "react"
 
 import {
   Link,
-  useLocation,
   useNavigate,
 } from "react-router-dom"
 
@@ -21,16 +19,7 @@ import "./_navbar.scss"
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const location = useLocation()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    })
-  }, [location.pathname])
 
   const toggleMenu = () => {
     setIsMenuOpen((previousState) => !previousState)
@@ -48,17 +37,17 @@ const Navbar = () => {
 
     closeMenu()
 
-    if (location.pathname === path) {
-      window.location.reload()
-      return
-    }
-
-    navigate(path)
+    navigate(path, {
+      state: {
+        refresh: Date.now(),
+      },
+    })
   }
 
   return (
     <>
       <nav className="navbar">
+
         <div className="navbarContent">
 
           <div className="navbarHeader">
@@ -157,6 +146,7 @@ const Navbar = () => {
           </div>
 
         </div>
+
       </nav>
 
       <div className="navbarSpacer" />

@@ -2,15 +2,14 @@ import Navbar from "../../components/Navbar/Navbar"
 
 import "./_reservations.scss"
 
-import "animate.css"
-
 const Reservations = () => {
   return (
-    <div>
+    <>
       <Navbar />
 
       <main className="reservations">
-        <section>
+        <section className="reservationsContent">
+
           <p className="animate__animated animate__backInLeft">
             Podés reservar tu mesa
           </p>
@@ -31,9 +30,10 @@ const Reservations = () => {
           >
             Reserva ahora
           </a>
+
         </section>
       </main>
-    </div>
+    </>
   )
 }
 

@@ -3,10 +3,11 @@
 .menu {
   width: 100%;
   min-width: 0;
+
   padding: 1rem;
 
-  font-family: variables.$font-secondary;
   color: variables.$color-font;
+  font-family: variables.$font-secondary;
 }
 
 .menuCategories {
@@ -113,12 +114,12 @@
   font-size: 1.25rem;
 }
 
-.meal h3 {
+.mealDescription {
   margin-top: 0.5rem;
 
   font-family: variables.$font-primary;
   font-size: 1rem;
-  font-weight: normal;
+
   line-height: 1.4;
 }
 
@@ -176,7 +177,7 @@
     font-size: 1.4rem;
   }
 
-  .meal h3 {
+  .mealDescription {
     font-size: 1.1rem;
   }
 
@@ -210,7 +211,7 @@
     font-size: 1.5rem;
   }
 
-  .meal h3 {
+  .mealDescription {
     font-size: 1.2rem;
   }
 
@@ -229,7 +230,7 @@
    DESKTOP
    ================================= */
 
-@media (min-width: 1440px) {
+@media (min-width: 1280px) {
   .menu {
     padding: 2rem 3rem;
   }
@@ -256,7 +257,7 @@
     font-size: 1.6rem;
   }
 
-  .meal h3 {
+  .mealDescription {
     font-size: 1.25rem;
   }
 

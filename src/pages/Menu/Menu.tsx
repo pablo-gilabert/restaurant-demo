@@ -1,5 +1,14 @@
-import { collection, getDocs } from "firebase/firestore"
-import { useEffect, useRef, useState } from "react"
+import {
+  collection,
+  getDocs,
+} from "firebase/firestore"
+
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 
 import { db } from "../../firebase/config"
 
@@ -7,7 +16,6 @@ import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
 
 import "./_menu.scss"
-import "animate.css"
 
 type Category =
   | "Cafetería"
@@ -75,20 +83,35 @@ const Menu = () => {
 
   const [meals, setMeals] = useState<Meal[]>([])
 
+  const categoriesRef = useRef<HTMLDivElement>(null)
+
+  const [isDragging, setIsDragging] =
+    useState(false)
+
+  const startX = useRef(0)
+  const initialScroll = useRef(0)
+  const hasMoved = useRef(false)
+
   useEffect(() => {
     const fetchMeals = async () => {
-      const mealsSnapshot = await getDocs(
-        collection(db, "comidas")
-      )
+      try {
+        const mealsSnapshot = await getDocs(
+          collection(db, "comidas")
+        )
 
-      const firebaseMeals: Meal[] = mealsSnapshot.docs.map(
-        (doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        } as Meal)
-      )
+        const firebaseMeals: Meal[] =
+          mealsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          } as Meal))
 
-      setMeals(firebaseMeals)
+        setMeals(firebaseMeals)
+      } catch (error) {
+        console.error(
+          "Error al obtener las comidas:",
+          error
+        )
+      }
     }
 
     fetchMeals()
@@ -100,62 +123,59 @@ const Menu = () => {
       meal.available
   )
 
-  const categoriesRef = useRef<HTMLDivElement>(null)
+  const handleMouseDown = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const categoriesElement =
+        categoriesRef.current
 
-  const [isDragging, setIsDragging] = useState(false)
+      if (!categoriesElement) return
 
-  const startX = useRef(0)
-  const initialScroll = useRef(0)
-  const hasMoved = useRef(false)
+      startX.current = event.pageX
 
-  const handleMouseDown = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
-    if (!categoriesRef.current) return
-
-    startX.current = event.pageX
-    initialScroll.current =
-      categoriesRef.current.scrollLeft
-
-    hasMoved.current = false
-
-    setIsDragging(true)
-  }
-
-  const handleMouseMove = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
-    if (!isDragging || !categoriesRef.current) return
-
-    const displacement =
-      event.pageX - startX.current
-
-    if (Math.abs(displacement) > 5) {
-      hasMoved.current = true
-    }
-
-    categoriesRef.current.scrollLeft =
-      initialScroll.current - displacement
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
-
-  const handleCategoryClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    category: Category
-  ) => {
-    if (hasMoved.current) {
-      event.preventDefault()
-      event.stopPropagation()
+      initialScroll.current =
+        categoriesElement.scrollLeft
 
       hasMoved.current = false
 
+      setIsDragging(true)
+    },
+    []
+  )
+
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const categoriesElement =
+        categoriesRef.current
+
+      if (
+        !isDragging ||
+        !categoriesElement
+      ) {
+        return
+      }
+
+      const displacement =
+        event.pageX - startX.current
+
+      if (Math.abs(displacement) > 5) {
+        hasMoved.current = true
+      }
+
+      categoriesElement.scrollLeft =
+        initialScroll.current - displacement
+    },
+    [isDragging]
+  )
+
+  const stopDragging = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  const handleCategoryClick = (
+    category: Category
+  ) => {
+    if (hasMoved.current) {
+      hasMoved.current = false
       return
     }
 
@@ -177,46 +197,46 @@ const Menu = () => {
           } animate__animated animate__backInRight`}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
+          onMouseUp={stopDragging}
+          onMouseLeave={stopDragging}
         >
-
           {categories.map((category) => (
             <button
               key={category}
+              type="button"
               className={`menuCategory ${
                 selectedCategory === category
                   ? "menuCategory--active"
                   : ""
               }`}
-              onClick={(event) =>
-                handleCategoryClick(event, category)
+              onClick={() =>
+                handleCategoryClick(category)
               }
             >
               {category}
             </button>
           ))}
-
         </div>
 
         <section className="menuContent">
-
-          <h2>{selectedCategory}</h2>
+          {selectedCategory && (
+            <h2>{selectedCategory}</h2>
+          )}
 
           <div className="meals">
-
             {filteredMeals.map((meal) => (
-              <div
+              <article
                 className="meal"
                 key={meal.id}
               >
-
-                <div className="mealDivider"></div>
+                <div className="mealDivider" />
 
                 <p>{meal.name}</p>
 
                 {meal.description && (
-                  <h3>{meal.description}</h3>
+                  <p className="mealDescription">
+                    {meal.description}
+                  </p>
                 )}
 
                 {meal.price > 0 && (
@@ -224,17 +244,14 @@ const Menu = () => {
                     ${meal.price}
                   </span>
                 )}
-
-              </div>
+              </article>
             ))}
-
           </div>
-
         </section>
 
-        <h6 className="menuPrompt animate__animated animate__backInUp">
+        <p className="menuPrompt animate__animated animate__backInUp">
           ¡Elegí una categoría y comenzá a explorar!
-        </h6>
+        </p>
 
       </main>
 

@@ -1,21 +1,7 @@
 @use "../abstracts/variables";
 
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
 body {
   background-color: variables.$color-primary;
   color: variables.$color-font;
-
   font-family: variables.$font-primary;
-
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }
