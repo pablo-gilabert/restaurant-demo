@@ -8,18 +8,18 @@ import "./_navbar.scss"
 const Navbar = () => {
 
   //USE EFFECT & USE REFT TO HIDE THE BUTTON LOGO ON DESKTOP
-  const [isMobile, setIsMobile] = useState (window.innerWidth < 1024)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
 
   useEffect(() => {
 
     const handleResize = () => {
-      setIsMobile (window.innerWidth < 1024)
+      setIsMobile(window.innerWidth < 1024)
     }
 
-    window.addEventListener ("resize", handleResize)
+    window.addEventListener("resize", handleResize)
 
     return () => {
-      window.removeEventListener ("resize", handleResize)
+      window.removeEventListener("resize", handleResize)
     }
   }, [])
 
@@ -44,8 +44,7 @@ const Navbar = () => {
             data-bs-target="#navbarMenu"
             aria-controls="navbarMenu"
             aria-expanded="false"
-            aria-label="Abrir menú"
-          >
+            aria-label="Abrir menú">
             <span className="navbar-toggler-icon"></span>
           </button>
 
@@ -53,15 +52,15 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse navbarMenu" id="navbarMenu">
 
-          <Link to="/">Inicio</Link>
+          <Link className="navbarLink" to="/">Inicio</Link>
 
-          <Link to="/menu">Carta</Link>
+          <Link className="navbarLink" to="/menu">Carta</Link>
 
-          <Link to="/reservations">Reservaciones</Link>
+          <Link className="navbarLink" to="/reservations">Reservaciones</Link>
 
-          <Link to="/about">Nosotros</Link>
+          <Link className="navbarLink" to="/about">Nosotros</Link>
 
-          <button type="button">Sesión</button>
+          <Link className="navbarLink" to="/login">Sesión</Link>
 
         </div>
 

@@ -22,40 +22,40 @@ const Main = () => {
   return (
 
     <main className="main">
-      
-      <p>Desayunos</p>
+
+      <p className="mainTitle">Desayunos</p>
 
       <section className="section">
 
-        <img src={Capuchino} alt="Capuchino"/>
-        <img src={Pavlova} alt="Café con pavlova"/>
-        <img src={Submarino} alt="Submarino"/>
-        <img src={Tostados} alt="Tostados de jamón y queso"/>
-        <img src={Variado} alt="Café con medialunas, cheesecake, etcétera"/>
-        <img src={CafeMedialunas} alt="Café con medialunas de jamón y queso"/>
+        <img className="mainImage" src={Capuchino} alt="Capuchino"/>
+        <img className="mainImage" src={Pavlova} alt="Café con pavlova"/>
+        <img className="mainImage" src={Submarino} alt="Submarino"/>
+        <img className="mainImage" src={Tostados} alt="Tostados de jamón y queso"/>
+        <img className="mainImage" src={Variado} alt="Café con medialunas, cheesecake, etcétera"/>
+        <img className="mainImage" src={CafeMedialunas} alt="Café con medialunas de jamón y queso"/>
 
       </section>
 
-      <p>Postres</p>
+      <p className="mainTitle">Postres</p>
 
       <section className="section">
 
-        <img src={Cheesecake} alt="Cheesecake de pistacho"/>
-        <img src={CheesecakeClasico} alt="Cheesecake"/>
-        <img src={Chocotorta} alt="Chocotorta"/>
+        <img className="mainImage" src={Cheesecake} alt="Cheesecake de pistacho"/>
+        <img className="mainImage" src={CheesecakeClasico} alt="Cheesecake"/>
+        <img className="mainImage" src={Chocotorta} alt="Chocotorta"/>
 
       </section>
 
-      <p>Platos principales</p>
+      <p className="mainTitle">Platos principales</p>
 
       <section className="section">
 
-        <img src={BifeChorizo} alt="Bife de chorizo a la provenzal"/>
-        <img src={BifeMalbec} alt="Bife al malbec con papas crocantes"/>
-        <img src={PolloCarbonara} alt="Pollo a la carbonara con papas rejilla"/>
-        <img src={PolloRelleno} alt="Pollo relleno al champiñón"/>
-        <img src={Risotto} alt="Risotto de champiñones"/>
-        <img src={Sorrentinos} alt="Sorrentinos de salmón con salsa de camarones"/>
+        <img className="mainImage" src={BifeChorizo} alt="Bife de chorizo a la provenzal"/>
+        <img className="mainImage" src={BifeMalbec} alt="Bife al malbec con papas crocantes"/>
+        <img className="mainImage" src={PolloCarbonara} alt="Pollo a la carbonara con papas rejilla"/>
+        <img className="mainImage" src={PolloRelleno} alt="Pollo relleno al champiñón"/>
+        <img className="mainImage" src={Risotto} alt="Risotto de champiñones"/>
+        <img className="mainImage" src={Sorrentinos} alt="Sorrentinos de salmón con salsa de camarones"/>
 
       </section>
 

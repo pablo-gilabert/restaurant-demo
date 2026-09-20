@@ -5,9 +5,9 @@ import Main from "../../components/Main/Main"
 const Home = () => {
   return (
     <div>
-      <Header />
-      <Main />
-      <Footer />
+      <Header/>
+      <Main/>
+      <Footer/>
     </div>
   )
 }

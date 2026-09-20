@@ -1,7 +1,10 @@
 @use "../abstracts/variables";
 
 body {
+
   background-color: variables.$color-primary;
   color: variables.$color-font;
+
   font-family: variables.$font-primary;
+
 }

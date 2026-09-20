@@ -2,113 +2,48 @@
 
 .footer {
   position: relative;
-  isolation: isolate;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  min-height: 28rem;
-  margin-top: 8rem;
+  margin-top: 8rem auto;
   padding: 5rem 1rem;
 
-  overflow: hidden;
+  text-align: center;
+  text-shadow: 2px 2px 2px black;
+
+  font-size: clamp(20px, 2vw, 40px);
 }
 
 .footerBackground {
   position: absolute;
-  inset: 0;
   z-index: -1;
 
   width: 100%;
-  height: 100%;
 
+  height: 100%;
   object-fit: cover;
 }
 
 .footerHero {
-  max-width: 90%;
-
-  margin-top: 3rem;
-
+  margin-top: 5rem;
   color: variables.$color-font-gold;
-
-  font-size: 1.5rem;
-  line-height: 1.4;
-
-  text-align: center;
-  text-shadow: 2px 2px 2px black;
 }
 
 .footerButton {
-  display: inline-block;
-
   margin-top: 4rem;
   padding: 0.8rem 1.2rem;
 
   border-radius: 12px;
-
   background-color: variables.$color-font-gold;
+
   color: black;
-
   font-family: variables.$font-secondary;
-  font-size: 1.5rem;
-
-  text-decoration: none;
-
-  transition: box-shadow 0.2s ease;
+  
+  text-shadow: none;
 }
 
 .footerButton:hover {
   box-shadow: 0 0 15px black;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-  .footer {
-    min-height: 32rem;
-    padding: 6rem 2rem;
-  }
-
-  .footerHero {
-    max-width: 70%;
-    font-size: 1.75rem;
-  }
-
-  .footerButton {
-    font-size: 1.75rem;
-  }
-}
-
-/* Notebook */
-@media (min-width: 1024px) {
-  .footer {
-    min-height: 36rem;
-  }
-
-  .footerHero {
-    max-width: 60%;
-    font-size: 2rem;
-  }
-
-  .footerButton {
-    margin-top: 5rem;
-    font-size: 2rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1280px) {
-  .footer {
-    min-height: 40rem;
-    margin-top: 10rem;
-  }
-
-  .footerHero {
-    max-width: 50%;
-  }
-
-  .footerButton {
-    margin-top: 8rem;
-  }
 }

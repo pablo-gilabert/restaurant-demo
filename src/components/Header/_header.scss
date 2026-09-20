@@ -15,7 +15,7 @@
 
   width: 100%;
   height: 100%;
-  
+
   object-fit: cover;
 }
 
@@ -23,7 +23,11 @@
   position: relative;
 }
 
-.header h1, .header p {
+.headerTitle,
+.headerHero {
+  width: 80%;
+  margin: 0 auto;
+
   color: variables.$color-font;
   font-family: variables.$font-secondary;
 
@@ -31,8 +35,5 @@
   text-shadow: 2px 2px 2px black;
 
   font-size: clamp(1.25rem, 5vw, 3.75rem);
-  width: 80%;
-
-  margin: 0 auto;
   margin-top: clamp(5rem, 10vw, 25rem);
 }

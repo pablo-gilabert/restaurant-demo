@@ -1,0 +1,77 @@
+@use "../../styles/abstracts/variables";
+
+.login {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+  min-height: 70vh;
+
+  padding: 3rem 1rem;
+}
+
+.loginForm {
+  width: min(90%, 30rem);
+  padding: 2rem;
+
+  border-radius: 12px;
+  background-color: rgba(9, 20, 19, 0.9);
+
+  box-shadow: 0 0 12px rgba(243, 211, 130, 0.2);
+  color: variables.$color-font;
+
+  font-family: variables.$font-primary;
+}
+
+.loginTitle {
+  margin-bottom: 2rem;
+  color: variables.$color-font-gold;
+
+  font-family: variables.$font-secondary;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+
+  text-align: center;
+}
+
+.form-label {
+  color: variables.$color-font-gold;
+  font-family: variables.$font-secondary;
+}
+
+.loginInput {
+  border: 1px solid variables.$color-secondary;
+
+  background-color: variables.$color-primary;
+  color: variables.$color-font;
+}
+
+.loginInput::placeholder {
+  color: variables.$color-font;
+  opacity: 0.6;
+}
+
+.loginInput:focus {
+  border-color: variables.$color-font-gold;
+  background-color: variables.$color-primary;
+
+  color: variables.$color-font;
+  box-shadow: 0 0 8px rgba(243, 211, 130, 0.3);
+}
+
+.loginButton {
+  width: 100%;
+  margin-top: 1rem;
+
+  padding: 0.75rem;
+  background-color: variables.$color-font-gold;
+
+  color: variables.$color-primary;
+  font-family: variables.$font-secondary;
+
+  font-size: 1.1rem;
+}
+
+.loginButton:hover {
+  background-color: variables.$color-secondary;
+  color: variables.$color-font;
+}

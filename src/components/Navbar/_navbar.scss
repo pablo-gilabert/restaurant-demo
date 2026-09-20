@@ -1,8 +1,9 @@
 @use "../../styles/abstracts/variables";
 
 .navbar {
-  font-family: variables.$font-primary;
   color: variables.$color-font;
+
+  font-family: variables.$font-primary;
 }
 
 .navbarContent {
@@ -11,23 +12,29 @@
 
 .navbarHeader {
   display: flex;
-  align-items: center;
 
+  align-items: center;
   justify-content: space-between;
 }
 
 .navbarLogoLink {
   display: block;
+
   width: 6.5rem;
 }
 
 .navbarLogo {
   display: block;
+
   width: 100%;
 }
 
-.navbar-toggler:focus {
-  box-shadow: none;
+.navbar-toggler {
+
+  &:focus {
+    box-shadow: none;
+  }
+
 }
 
 .navbar-toggler-icon {
@@ -35,26 +42,34 @@
 }
 
 .navbarMenu {
-  display: grid;
-  justify-items: center;
 
+  display: grid;
+
+  justify-items: center;
   gap: 0.75rem;
+
   padding: 2rem 0;
 
-  font-size: clamp(24px, 1vw, 40px);
+  font-size: clamp(1.5rem, 1vw, 2.5rem);
+
   text-align: center;
+
 }
 
-.navbarMenu a:hover,
-.navbarMenu button:hover {
-  color: variables.$color-font-gold;
+.navbarLink {
+
+  &:hover {
+    color: variables.$color-font-gold;
+  }
+
 }
 
 @media (min-width: 1024px) {
 
   .navbarMenu {
     display: flex;
+
     justify-content: space-around;
   }
-}
 
+}

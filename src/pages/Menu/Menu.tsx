@@ -109,19 +109,14 @@ const Menu = () => {
 
             {categories.map((category) => (
 
-              <button
-                key={category}
-                type="button"
-                className={`menuCategory flex-shrink-0 ${
-                  selectedCategory === category ? "menuCategory--active" : "" }`} 
-                  onClick={() => setSelectedCategory(category)}
-                >
+              <button key={category} type="button" className=
+                {`menuCategory flex-shrink-0 ${
+                selectedCategory === category ? "menuCategory--active" : "" }`} 
+                onClick={() => setSelectedCategory(category)}>
                 {category}
               </button>
             ))}
-
           </div>
-
         </div>
 
         <section className="menuContent">
@@ -134,13 +129,9 @@ const Menu = () => {
 
                 <p className="mealName">{meal.name}</p>
 
-                {meal.description && (
-                  <p className="mealDescription">{meal.description}</p>
-                )}
+                {meal.description && (<p className="mealDescription">{meal.description}</p>)}
 
-                {meal.price > 0 && (
-                  <span>${meal.price}</span>
-                )}
+                {meal.price > 0 && (<span>${meal.price}</span>)}
 
                 <div className="mealDivider"/>
 

@@ -4,33 +4,58 @@
   width: 100%;
 }
 
-.mealName, .mealDescription, .menuCategory, .menuPrompt {
-  font-size: clamp(20px, 2vw, 40px);
-  margin: 0;
-}
-
-.mealName {
-  font-size: clamp(24px, 2vw, 45px);
-  margin: 0.25rem auto;
-}
-
-.mealDescription {
-  font-size: clamp(20px, 1vw, 35px);
-  margin: 0.25rem auto;
-}
-
 .menuContent {
   width: 80%;
   margin: 0 auto;
+
+  color: variables.$color-font;
+  font-family: variables.$font-primary;
+
+  text-align: center;
 }
 
 .menuCategories {
   width: 90%;
-  scrollbar-width: thin;
+  margin: 0 auto 5rem;
 
+  scrollbar-width: thin;
   scrollbar-color: variables.$color-font-gold transparent;
-  margin: 0 auto;
-  margin-bottom: 5rem;
+}
+
+.menuCategory {
+  flex-shrink: 0;
+  margin: 1rem auto;
+
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+
+  background-color: variables.$color-secondary;
+  color: variables.$color-font;
+
+  font-family: variables.$font-secondary;
+  font-size: clamp(1.25rem, 2vw, 2.5rem);
+
+  &:hover {
+    background-color: variables.$color-font-gold;
+    color: black;
+  }
+
+  &--active {
+    background-color: variables.$color-font-gold;
+    color: black;
+  }
+}
+
+.mealName {
+  margin: 0.25rem auto;
+  font-size: clamp(1.5rem, 2vw, 2.8125rem);
+}
+
+.mealDescription {
+  margin: 0.25rem auto;
+  font-family: variables.$font-secondary;
+
+  font-size: clamp(1.25rem, 1vw, 2.1875rem);
 }
 
 .mealDivider {
@@ -38,38 +63,7 @@
   background-color: variables.$color-font-gold;
 }
 
-.menuContent {
-  text-align: center;
-  font-family: variables.$font-primary;
-
-  color: variables.$color-font;
-}
-
 .menuPrompt {
   color: variables.$color-font-gold;
-  text-align: center;
-}
-
-.mealDescription, .menuCategory {
-  font-family: variables.$font-secondary;
-}
-
-.menuCategory {
-  border-radius: 12px;
-  background-color: variables.$color-secondary;
-
-  padding: 0.5rem 1rem;
-  color: variables.$color-font;
-
-  margin: 1rem auto;
-}
-
-.menuCategory--active {
-  background-color: variables.$color-font-gold;
-  color: black;
-}
-
-.menuCategory:hover {
-  background-color: variables.$color-font-gold;
-  color: black;
+  font-size: clamp(1.25rem, 2vw, 2.5rem);
 }

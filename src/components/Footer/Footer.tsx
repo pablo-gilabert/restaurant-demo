@@ -7,22 +7,13 @@ import FooterBack from "../../assets/img/footer.jpg"
 const Footer = () => {
   return (
     <footer className="footer">
-      <img
-        className="footerBackground"
-        src={FooterBack}
-        alt="Almuerzo completo"
-      />
 
-      <p className="footerHero">
-        Estamos listos para entregarte la mejor experiencia.
-      </p>
+      <img className="footerBackground" src={FooterBack} alt="Almuerzo completo"/>
 
-      <Link
-        to="/reservations"
-        className="footerButton"
-      >
-        Reserva ahora
-      </Link>
+      <p className="footerHero">Estamos listos para entregarte la mejor experiencia</p>
+
+      <Link to="/reservations" className="footerButton"> Reserva ahora</Link>
+      
     </footer>
   )
 }

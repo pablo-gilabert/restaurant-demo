@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home"
 import Menu from "./pages/Menu/Menu"
 import Reservations from "./pages/Reservations/Reservations"
 import About from "./pages/About/About"
+import Login from "./pages/Login/Login"
 
 const App = () => {
   const location = useLocation()
@@ -18,29 +19,18 @@ const App = () => {
     <>
       <ScrollToTop />
 
-      <Routes
-        location={location}
-        key={location.key}
-      >
-        <Route
-          path="/"
-          element={<Home />}
-        />
+      <Routes location={location} key={location.key}>
 
-        <Route
-          path="/menu"
-          element={<Menu />}
-        />
+        <Route path="/" element={<Home/>}/>
 
-        <Route
-          path="/reservations"
-          element={<Reservations />}
-        />
+        <Route path="/menu" element={<Menu/>}/>
 
-        <Route
-          path="/about"
-          element={<About />}
-        />
+        <Route path="/reservations" element={<Reservations/>}/>
+
+        <Route path="/about" element={<About/>}/>
+
+        <Route path="/login" element={<Login/>}/>
+
       </Routes>
     </>
   )

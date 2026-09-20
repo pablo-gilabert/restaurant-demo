@@ -20,9 +20,7 @@ const Header = () => {
 
         <h1 className="headerTitle">Mathilde Resto</h1>
 
-        <p className="headerHero">
-          En Mathilde, cada comida es un momento para disfrutar.
-        </p>
+        <p className="headerHero">En Mathilde, cada comida es un momento para disfrutar</p>
 
       </header>
     </div>
