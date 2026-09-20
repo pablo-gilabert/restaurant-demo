@@ -1,81 +1,43 @@
 @use "../../styles/abstracts/variables";
 
 .main {
-  width: 100%;
-
-  padding: 0 1rem;
-
   font-family: variables.$font-secondary;
   color: variables.$color-font-gold;
-}
-
-.main p {
-  margin-top: 8rem;
-
-  font-size: 1.5rem;
 
   text-align: center;
 }
 
+.main p {
+  margin-top: 8rem;
+  font-size: 1.5rem;
+}
+
 .section {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
-  width: 100%;
-  max-width: 1200px;
+  gap: 2rem;
+  width: 80%;
 
   margin: 0 auto;
 }
 
 .main img {
-  display: block;
-
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 4.4;
+  height: 90%;
 
   object-fit: cover;
-
   border-radius: 12px;
 }
 
-/* Tablet */
-@media (min-width: 768px) {
-  .main {
-    padding: 0 2rem;
-  }
-
-  .main p {
-    margin-top: 10rem;
-    font-size: 1.75rem;
-  }
-
-  .section {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-}
-
-/* Notebook */
-@media (min-width: 1024px) {
-  .main p {
-    margin-top: 12rem;
-    font-size: 1.875rem;
-  }
-
-  .section {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Desktop */
 @media (min-width: 1280px) {
   .main p {
-    margin-top: 15rem;
+    font-size: 2.1875rem;
   }
+}
 
-  .section {
-    gap: 2.5rem;
+@media (min-width: 1920px) {
+  .main p {
+    font-size: 3.125rem;
   }
 }

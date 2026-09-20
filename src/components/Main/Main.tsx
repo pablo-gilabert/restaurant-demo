@@ -20,60 +20,45 @@ import Sorrentinos from "../../assets/img/principales/sorrentinosSalimon.jpg"
 
 const Main = () => {
   return (
+
     <main className="main">
+      
       <p>Desayunos</p>
 
       <section className="section">
-        <img src={Capuchino} alt="Capuchino" />
-        <img src={Pavlova} alt="Café con pavlova" />
-        <img src={Submarino} alt="Submarino" />
-        <img src={Tostados} alt="Tostados de jamón y queso" />
-        <img
-          src={Variado}
-          alt="Café con medialunas, cheesecake, etcétera"
-        />
-        <img
-          src={CafeMedialunas}
-          alt="Café con medialunas de jamón y queso"
-        />
+
+        <img src={Capuchino} alt="Capuchino"/>
+        <img src={Pavlova} alt="Café con pavlova"/>
+        <img src={Submarino} alt="Submarino"/>
+        <img src={Tostados} alt="Tostados de jamón y queso"/>
+        <img src={Variado} alt="Café con medialunas, cheesecake, etcétera"/>
+        <img src={CafeMedialunas} alt="Café con medialunas de jamón y queso"/>
+
       </section>
 
       <p>Postres</p>
 
       <section className="section">
-        <img src={Cheesecake} alt="Cheesecake de pistacho" />
-        <img src={CheesecakeClasico} alt="Cheesecake" />
-        <img src={Chocotorta} alt="Chocotorta" />
+
+        <img src={Cheesecake} alt="Cheesecake de pistacho"/>
+        <img src={CheesecakeClasico} alt="Cheesecake"/>
+        <img src={Chocotorta} alt="Chocotorta"/>
+
       </section>
 
       <p>Platos principales</p>
 
       <section className="section">
-        <img
-          src={BifeChorizo}
-          alt="Bife de chorizo a la provenzal"
-        />
-        <img
-          src={BifeMalbec}
-          alt="Bife al malbec con papas crocantes"
-        />
-        <img
-          src={PolloCarbonara}
-          alt="Pollo a la carbonara con papas rejilla"
-        />
-        <img
-          src={PolloRelleno}
-          alt="Pollo relleno al champiñón"
-        />
-        <img
-          src={Risotto}
-          alt="Risotto de champiñones"
-        />
-        <img
-          src={Sorrentinos}
-          alt="Sorrentinos de salmón con salsa de camarones"
-        />
+
+        <img src={BifeChorizo} alt="Bife de chorizo a la provenzal"/>
+        <img src={BifeMalbec} alt="Bife al malbec con papas crocantes"/>
+        <img src={PolloCarbonara} alt="Pollo a la carbonara con papas rejilla"/>
+        <img src={PolloRelleno} alt="Pollo relleno al champiñón"/>
+        <img src={Risotto} alt="Risotto de champiñones"/>
+        <img src={Sorrentinos} alt="Sorrentinos de salmón con salsa de camarones"/>
+
       </section>
+
     </main>
   )
 }

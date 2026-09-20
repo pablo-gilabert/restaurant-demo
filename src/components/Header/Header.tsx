@@ -7,27 +7,20 @@ import Fondo from "../../assets/img/fondo.jpg"
 
 const Header = () => {
   return (
-    <div className="headerWrapper">
-      <img
-        className="background"
-        src={Fondo}
-        alt="Almuerzo completo"
-      />
 
-      <Navbar />
+    <div className="headerWrapper">
+
+      <img className="background" src={Fondo} alt="Almuerzo completo"/>
+
+      <Navbar/>
 
       <header className="header">
-        <img
-          src={Mathilde}
-          alt="Mathilde Resto Logo"
-          className="logo animate__animated animate__backInRight"
-        />
 
-        <h1 className="headerTitle animate__animated animate__backInLeft">
-          Mathilde Resto
-        </h1>
+        <img src={Mathilde} alt="Mathilde Resto Logo" className="logo"/>
 
-        <p className="headerHero animate__animated animate__backInLeft">
+        <h1 className="headerTitle">Mathilde Resto</h1>
+
+        <p className="headerHero">
           En Mathilde, cada comida es un momento para disfrutar.
         </p>
 

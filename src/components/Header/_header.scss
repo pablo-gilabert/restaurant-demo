@@ -1,197 +1,38 @@
 @use "../../styles/abstracts/variables";
 
+.logo {
+  display: none;
+}
+
 .headerWrapper {
   position: relative;
-  isolation: isolate;
-
   min-height: 100svh;
-
-  overflow: hidden;
 }
 
 .background {
   position: absolute;
   inset: 0;
-  z-index: -1;
 
   width: 100%;
   height: 100%;
-
+  
   object-fit: cover;
 }
 
 .header {
   position: relative;
-  z-index: 1;
+}
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 2rem 1rem 5rem;
-
+.header h1, .header p {
   color: variables.$color-font;
-}
-
-/* =================================
-   LOGO
-   ================================= */
-
-.logo {
-  display: none;
-}
-
-/* =================================
-   TITLE
-   ================================= */
-
-.headerTitle {
-  margin-top: 1rem;
-
   font-family: variables.$font-secondary;
-  font-size: 2.5rem;
-  font-weight: normal;
 
   text-align: center;
-
   text-shadow: 2px 2px 2px black;
-}
 
-/* =================================
-   DESCRIPTION
-   ================================= */
+  font-size: clamp(1.25rem, 5vw, 3.75rem);
+  width: 80%;
 
-.headerHero {
-  max-width: 90%;
-
-  margin-top: 1rem;
-
-  font-size: 1.1rem;
-  line-height: 1.5;
-
-  text-align: center;
-
-  text-shadow: 2px 2px 2px black;
-}
-
-/* =================================
-   DISCOVER BUTTON
-   ================================= */
-
-.discover {
-  display: block;
-
-  width: 70%;
-
-  margin-top: 5rem;
-  padding: 0.8rem 1rem;
-
-  border-radius: 12px;
-
-  background-color: variables.$color-font-gold;
-  color: black;
-
-  font-family: variables.$font-secondary;
-  font-size: 1.5rem;
-
-  cursor: pointer;
-
-  transition: box-shadow 0.2s ease;
-}
-
-.discover:hover {
-  box-shadow: 0 0 15px black;
-}
-
-/* =================================
-   TABLET
-   ================================= */
-
-@media (min-width: 768px) {
-  .header {
-    padding: 3rem 2rem 6rem;
-  }
-
-  .headerTitle {
-    font-size: 3.5rem;
-  }
-
-  .headerHero {
-    max-width: 70%;
-
-    font-size: 1.25rem;
-  }
-
-  .discover {
-    width: 40%;
-
-    font-size: 1.75rem;
-  }
-}
-
-/* =================================
-   NOTEBOOK
-   ================================= */
-
-@media (min-width: 1024px) {
-  .header {
-    padding: 4rem 2rem 7rem;
-  }
-
-  .logo {
-    display: block;
-
-    width: 15rem;
-    height: auto;
-
-    object-fit: contain;
-  }
-
-  .headerTitle {
-    font-size: 4.25rem;
-  }
-
-  .headerHero {
-    max-width: 60%;
-
-    font-size: 1.4rem;
-  }
-
-  .discover {
-    width: 25%;
-
-    font-size: 1.9rem;
-  }
-}
-
-/* =================================
-   DESKTOP
-   ================================= */
-
-@media (min-width: 1280px) {
-  .header {
-    padding-top: 5rem;
-  }
-
-  .logo {
-    width: 15.625rem;
-  }
-
-  .headerTitle {
-    font-size: 5rem;
-  }
-
-  .headerHero {
-    max-width: 50%;
-
-    font-size: 1.5rem;
-  }
-
-  .discover {
-    width: 15%;
-
-    margin-top: 8rem;
-
-    font-size: 2rem;
-  }
+  margin: 0 auto;
+  margin-top: clamp(5rem, 10vw, 25rem);
 }

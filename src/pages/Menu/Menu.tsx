@@ -1,15 +1,5 @@
-import {
-  collection,
-  getDocs,
-} from "firebase/firestore"
-
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-
+import { collection, getDocs } from "firebase/firestore"
+import { useEffect, useState } from "react"
 import { db } from "../../firebase/config"
 
 import Navbar from "../../components/Navbar/Navbar"
@@ -78,184 +68,92 @@ const categories: Category[] = [
 ]
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] =
-    useState<Category | null>(null)
+
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
   const [meals, setMeals] = useState<Meal[]>([])
 
-  const categoriesRef = useRef<HTMLDivElement>(null)
-
-  const [isDragging, setIsDragging] =
-    useState(false)
-
-  const startX = useRef(0)
-  const initialScroll = useRef(0)
-  const hasMoved = useRef(false)
-
   useEffect(() => {
-    const fetchMeals = async () => {
-      try {
-        const mealsSnapshot = await getDocs(
-          collection(db, "comidas")
-        )
 
-        const firebaseMeals: Meal[] =
-          mealsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          } as Meal))
+    const fetchMeals = async () => {
+
+      try {
+
+        const mealsSnapshot = await getDocs (collection(db, "comidas"))
+
+        const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()} as Meal))
 
         setMeals(firebaseMeals)
+
       } catch (error) {
-        console.error(
-          "Error al obtener las comidas:",
-          error
-        )
+        console.error("Error al obtener las comidas:", error)
       }
     }
 
     fetchMeals()
   }, [])
 
-  const filteredMeals = meals.filter(
-    (meal) =>
-      meal.category === selectedCategory &&
-      meal.available
+  const filteredMeals = meals.filter ((meal) => 
+    meal.category === selectedCategory && meal.available
   )
-
-  const handleMouseDown = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      const categoriesElement =
-        categoriesRef.current
-
-      if (!categoriesElement) return
-
-      startX.current = event.pageX
-
-      initialScroll.current =
-        categoriesElement.scrollLeft
-
-      hasMoved.current = false
-
-      setIsDragging(true)
-    },
-    []
-  )
-
-  const handleMouseMove = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      const categoriesElement =
-        categoriesRef.current
-
-      if (
-        !isDragging ||
-        !categoriesElement
-      ) {
-        return
-      }
-
-      const displacement =
-        event.pageX - startX.current
-
-      if (Math.abs(displacement) > 5) {
-        hasMoved.current = true
-      }
-
-      categoriesElement.scrollLeft =
-        initialScroll.current - displacement
-    },
-    [isDragging]
-  )
-
-  const stopDragging = useCallback(() => {
-    setIsDragging(false)
-  }, [])
-
-  const handleCategoryClick = (
-    category: Category
-  ) => {
-    if (hasMoved.current) {
-      hasMoved.current = false
-      return
-    }
-
-    setSelectedCategory(category)
-  }
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
 
       <main className="menu">
 
-        <div
-          ref={categoriesRef}
-          className={`menuCategories ${
-            isDragging
-              ? "menuCategories--dragging"
-              : ""
-          } animate__animated animate__backInRight`}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={stopDragging}
-          onMouseLeave={stopDragging}
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              className={`menuCategory ${
-                selectedCategory === category
-                  ? "menuCategory--active"
-                  : ""
-              }`}
-              onClick={() =>
-                handleCategoryClick(category)
-              }
-            >
-              {category}
-            </button>
-          ))}
+        <div className="menuCategories overflow-auto">
+
+          <div className="d-flex flex-nowrap gap-2">
+
+            {categories.map((category) => (
+
+              <button
+                key={category}
+                type="button"
+                className={`menuCategory flex-shrink-0 ${
+                  selectedCategory === category ? "menuCategory--active" : "" }`} 
+                  onClick={() => setSelectedCategory(category)}
+                >
+                {category}
+              </button>
+            ))}
+
+          </div>
+
         </div>
 
         <section className="menuContent">
-          {selectedCategory && (
-            <h2>{selectedCategory}</h2>
-          )}
 
           <div className="meals">
-            {filteredMeals.map((meal) => (
-              <article
-                className="meal"
-                key={meal.id}
-              >
-                <div className="mealDivider" />
 
-                <p>{meal.name}</p>
+            {filteredMeals.map((meal) => (
+
+              <article className="meal" key={meal.id}>
+
+                <p className="mealName">{meal.name}</p>
 
                 {meal.description && (
-                  <p className="mealDescription">
-                    {meal.description}
-                  </p>
+                  <p className="mealDescription">{meal.description}</p>
                 )}
 
                 {meal.price > 0 && (
-                  <span>
-                    ${meal.price}
-                  </span>
+                  <span>${meal.price}</span>
                 )}
+
+                <div className="mealDivider"/>
+
               </article>
             ))}
           </div>
         </section>
 
-        <p className="menuPrompt animate__animated animate__backInUp">
-          ¡Elegí una categoría y comenzá a explorar!
-        </p>
-
+        {!selectedCategory && (
+          <p className="menuPrompt">¡Elegí una categoría y comenzá a explorar!</p>
+        )}
       </main>
-
-      <Footer />
+      <Footer/>
     </>
   )
 }
