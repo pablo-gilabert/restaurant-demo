@@ -427,6 +427,12 @@ const Admin = () => {
 
     return (
       <>
+
+        <SEO
+          title="Panel de administración | Mathilde Resto"
+          description="Panel de administración de Mathilde Resto."
+        />
+
         <Navbar/>
 
         <main className="admin">
@@ -636,6 +642,12 @@ const Admin = () => {
 
     return (
       <>
+
+        <SEO
+          title="Panel de administración | Mathilde Resto"
+          description="Panel de administración de Mathilde Resto."
+        />
+
         <Navbar/>
 
         <main className="admin">
@@ -804,6 +816,12 @@ const Admin = () => {
 
   return (
     <>
+
+      <SEO
+        title="Panel de administración | Mathilde Resto"
+        description="Panel de administración de Mathilde Resto."
+      />
+
       <Navbar/>
 
       <main className="admin">

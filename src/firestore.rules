@@ -1,0 +1,54 @@
+rules_version = '2';
+
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && get(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        ).data.role == "admin";
+    }
+
+    function validMealData(data) {
+      return data.keys().hasOnly([
+        "name",
+        "description",
+        "category",
+        "available",
+        "price"
+      ])
+      && data.name is string
+      && data.name.size() > 0
+      && data.description is string
+      && data.category is string
+      && data.available is bool
+      && data.price is number
+      && data.price >= 0;
+    }
+
+    match /users/{userId} {
+
+      allow read: if request.auth != null
+        && request.auth.uid == userId;
+
+      allow write: if false;
+    }
+
+    match /comidas/{mealId} {
+
+      allow read: if resource.data.available == true
+        || isAdmin();
+
+      allow create: if isAdmin()
+        && validMealData(request.resource.data);
+
+      allow update: if isAdmin()
+        && validMealData(request.resource.data)
+        && request.resource.data.category == resource.data.category;
+
+      allow delete: if false;
+    }
+  }
+}
