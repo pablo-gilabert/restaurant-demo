@@ -39,6 +39,39 @@
   text-align: center;
 }
 
+.adminError,
+.adminSuccess {
+  max-width: 55rem;
+  margin: 1.5rem auto;
+
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+
+  font-size: 1rem;
+  text-align: center;
+}
+
+.adminError {
+  border: 1px solid #a94442;
+
+  background-color: rgba(169, 68, 66, 0.15);
+  color: #ffb3b1;
+}
+
+.adminSuccess {
+  border: 1px solid variables.$color-secondary;
+
+  background-color: rgba(42, 107, 92, 0.2);
+  color: variables.$color-font;
+}
+
+.adminCreate {
+  display: flex;
+  justify-content: center;
+
+  margin: 2rem 0;
+}
+
 .adminControls {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -155,6 +188,22 @@
   color: black;
 }
 
+.adminButton:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.5;
+}
+
+.adminButton:disabled:hover {
+  background-color: variables.$color-font-gold;
+  color: black;
+}
+
+.adminButton--secondary:disabled:hover {
+  background-color: variables.$color-secondary;
+  color: variables.$color-font;
+}
+
 .adminFormActions {
   display: flex;
   gap: 1rem;
@@ -189,4 +238,5 @@
   .adminFormActions {
     flex-direction: column;
   }
+
 }

@@ -4,7 +4,12 @@ import {
   query,
   where,
 } from "firebase/firestore"
-import { useEffect, useState } from "react"
+
+import {
+  useEffect,
+  useState,
+} from "react"
+
 import { db } from "../../firebase/config"
 
 import Navbar from "../../components/Navbar/Navbar"
@@ -78,39 +83,39 @@ const Menu = () => {
 
   const [meals, setMeals] = useState<Meal[]>([])
 
-useEffect(() => {
+  useEffect(() => {
 
-  const fetchMeals = async () => {
+    const fetchMeals = async () => {
 
-    try {
+      try {
 
-      const mealsQuery = query(
-        collection(db, "comidas"),
-        where("available", "==", true)
-      )
+        const mealsQuery = query(
+          collection(db, "comidas"),
+          where("available", "==", true)
+        )
 
-      const mealsSnapshot = await getDocs(mealsQuery)
+        const mealsSnapshot = await getDocs(mealsQuery)
 
-      const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      } as Meal))
+        const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        } as Meal))
 
-      setMeals(firebaseMeals)
+        setMeals(firebaseMeals)
 
-    } catch (error) {
+      } catch (error) {
 
-      console.error("Error al obtener las comidas:", error)
+        console.error("Error al obtener las comidas:", error)
 
+      }
     }
-  }
 
-  fetchMeals()
+    fetchMeals()
 
   }, [])
 
-  const filteredMeals = meals.filter ((meal) => 
-    meal.category === selectedCategory && meal.available
+  const filteredMeals = meals.filter((meal) =>
+    meal.category === selectedCategory
   )
 
   return (
@@ -125,14 +130,21 @@ useEffect(() => {
 
             {categories.map((category) => (
 
-              <button key={category} type="button" className=
-                {`menuCategory flex-shrink-0 ${
-                selectedCategory === category ? "menuCategory--active" : "" }`} 
-                onClick={() => setSelectedCategory(category)}>
+              <button
+                key={category}
+                type="button"
+                className={`menuCategory flex-shrink-0 ${
+                  selectedCategory === category ? "menuCategory--active" : ""
+                }`}
+                onClick={() => setSelectedCategory(category)}
+              >
                 {category}
               </button>
+
             ))}
+
           </div>
+
         </div>
 
         <section className="menuContent">
@@ -141,25 +153,45 @@ useEffect(() => {
 
             {filteredMeals.map((meal) => (
 
-              <article className="meal" key={meal.id}>
+              <article
+                className="meal"
+                key={meal.id}
+              >
 
-                <p className="mealName">{meal.name}</p>
+                <p className="mealName">
+                  {meal.name}
+                </p>
 
-                {meal.description && (<p className="mealDescription">{meal.description}</p>)}
+                {meal.description && (
+                  <p className="mealDescription">
+                    {meal.description}
+                  </p>
+                )}
 
-                {meal.price > 0 && (<span>${meal.price}</span>)}
+                {meal.price > 0 && (
+                  <span>
+                    ${meal.price}
+                  </span>
+                )}
 
                 <div className="mealDivider"/>
 
               </article>
+
             ))}
+
           </div>
+
         </section>
 
         {!selectedCategory && (
-          <p className="menuPrompt">¡Elegí una categoría y comenzá a explorar!</p>
+          <p className="menuPrompt">
+            ¡Elegí una categoría y comenzá a explorar!
+          </p>
         )}
+
       </main>
+
       <Footer/>
     </>
   )
