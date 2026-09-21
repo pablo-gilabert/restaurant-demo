@@ -23,22 +23,32 @@ const Main = () => {
 
     <main className="main">
 
-      <p className="mainTitle">Desayunos</p>
+      <h2 className="mainTitle">
+        Desayunos
+      </h2>
 
-      <section className="section">
+      <section
+        className="section"
+        aria-label="Desayunos"
+      >
 
         <img className="mainImage" src={Capuchino} alt="Capuchino"/>
         <img className="mainImage" src={Pavlova} alt="Café con pavlova"/>
         <img className="mainImage" src={Submarino} alt="Submarino"/>
         <img className="mainImage" src={Tostados} alt="Tostados de jamón y queso"/>
-        <img className="mainImage" src={Variado} alt="Café con medialunas, cheesecake, etcétera"/>
+        <img className="mainImage" src={Variado} alt="Café con medialunas, cheesecake y otros acompañamientos"/>
         <img className="mainImage" src={CafeMedialunas} alt="Café con medialunas de jamón y queso"/>
 
       </section>
 
-      <p className="mainTitle">Postres</p>
+      <h2 className="mainTitle">
+        Postres
+      </h2>
 
-      <section className="section">
+      <section
+        className="section"
+        aria-label="Postres"
+      >
 
         <img className="mainImage" src={Cheesecake} alt="Cheesecake de pistacho"/>
         <img className="mainImage" src={CheesecakeClasico} alt="Cheesecake"/>
@@ -46,9 +56,14 @@ const Main = () => {
 
       </section>
 
-      <p className="mainTitle">Platos principales</p>
+      <h2 className="mainTitle">
+        Platos principales
+      </h2>
 
-      <section className="section">
+      <section
+        className="section"
+        aria-label="Platos principales"
+      >
 
         <img className="mainImage" src={BifeChorizo} alt="Bife de chorizo a la provenzal"/>
         <img className="mainImage" src={BifeMalbec} alt="Bife al malbec con papas crocantes"/>

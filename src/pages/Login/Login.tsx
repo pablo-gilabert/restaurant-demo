@@ -10,6 +10,7 @@ import {
 
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
+import SEO from "../../components/SEO/SEO"
 
 import {
   AuthContext,
@@ -29,12 +30,20 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
 
     event.preventDefault()
 
+    if (loading) {
+      return
+    }
+
     setError("")
+    setLoading(true)
 
     try {
 
@@ -48,10 +57,21 @@ const Login = () => {
 
       setError("Correo o contraseña incorrectos")
 
+    } finally {
+
+      setLoading(false)
+
     }
   }
 
   const handleLogout = async () => {
+
+    if (loading) {
+      return
+    }
+
+    setError("")
+    setLoading(true)
 
     try {
 
@@ -63,11 +83,23 @@ const Login = () => {
 
       console.error(error)
 
+      setError("No se pudo cerrar la sesión. Intentá nuevamente.")
+
+    } finally {
+
+      setLoading(false)
+
     }
   }
 
   return (
     <>
+
+      <SEO
+        title="Iniciar sesión | Mathilde Resto"
+        description="Iniciá sesión en Mathilde Resto."
+      />
+
       <Navbar/>
 
       <main className="login">
@@ -77,9 +109,13 @@ const Login = () => {
           <form
             className="loginForm"
             onSubmit={handleLogin}
+            aria-labelledby="loginTitle"
           >
 
-            <h1 className="loginTitle">
+            <h1
+              className="loginTitle"
+              id="loginTitle"
+            >
               Iniciar sesión
             </h1>
 
@@ -99,6 +135,10 @@ const Login = () => {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="Ingresá tu correo"
+                autoComplete="email"
+                required
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? "loginError" : undefined}
               />
 
             </div>
@@ -119,12 +159,20 @@ const Login = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Ingresá tu contraseña"
+                autoComplete="current-password"
+                required
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? "loginError" : undefined}
               />
 
             </div>
 
             {error && (
-              <p className="loginError">
+              <p
+                className="loginError"
+                id="loginError"
+                role="alert"
+              >
                 {error}
               </p>
             )}
@@ -132,17 +180,25 @@ const Login = () => {
             <button
               className="btn loginButton"
               type="submit"
+              disabled={loading}
+              aria-busy={loading}
             >
-              Ingresar
+              {loading ? "Ingresando..." : "Ingresar"}
             </button>
 
           </form>
 
         ) : (
 
-          <section className="loginForm">
+          <section
+            className="loginForm"
+            aria-labelledby="sessionTitle"
+          >
 
-            <h1 className="loginTitle">
+            <h1
+              className="loginTitle"
+              id="sessionTitle"
+            >
               Sesión iniciada
             </h1>
 
@@ -154,12 +210,23 @@ const Login = () => {
               Rol: {role}
             </p>
 
+            {error && (
+              <p
+                className="loginError"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
+
             <button
               className="btn loginButton"
               type="button"
               onClick={handleLogout}
+              disabled={loading}
+              aria-busy={loading}
             >
-              Cerrar sesión
+              {loading ? "Cerrando sesión..." : "Cerrar sesión"}
             </button>
 
           </section>
@@ -167,6 +234,8 @@ const Login = () => {
         )}
 
       </main>
+
+      <Footer/>
     </>
   )
 }

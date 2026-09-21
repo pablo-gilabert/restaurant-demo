@@ -12,6 +12,7 @@ import Reservations from "./pages/Reservations/Reservations"
 import About from "./pages/About/About"
 import Login from "./pages/Login/Login"
 import Admin from "./pages/Admin/Admin"
+import NotFound from "./pages/NotFound/NotFound"
 
 const App = () => {
   const location = useLocation()
@@ -33,6 +34,8 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
 
         <Route path="/admin" element={<Admin/>}/>
+
+        <Route path="*" element={<NotFound/>}/>
 
       </Routes>
     </>

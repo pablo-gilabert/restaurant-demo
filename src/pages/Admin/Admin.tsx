@@ -1,15 +1,8 @@
 import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore"
-
-import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react"
 
@@ -18,112 +11,27 @@ import {
 } from "../../context/AuthContext"
 
 import {
-  db,
-} from "../../firebase/config"
+  categories,
+} from "../../data/categories"
+
+import {
+  createMeal,
+  getMeals,
+  toggleMealAvailability,
+  updateMeal,
+} from "../../services/meals"
+
+import type {
+  Category,
+  Filter,
+  Meal,
+  SortOption,
+} from "../../types/meal"
 
 import Navbar from "../../components/Navbar/Navbar"
+import SEO from "../../components/SEO/SEO"
 
 import "./_admin.scss"
-
-type Category =
-  | "Cafetería"
-  | "Cosas Dulces"
-  | "Tortas"
-  | "Desayunos"
-  | "Brunch"
-  | "Sandwiches"
-  | "Entradas"
-  | "Papas"
-  | "Ensaladas"
-  | "Pizzas"
-  | "Milanesas"
-  | "Grill"
-  | "Elaborados"
-  | "Pastas"
-  | "Postres"
-  | "Bebidas"
-  | "Cervezas"
-  | "Cervezas Artesanales"
-  | "Vinos Tintos Malbec"
-  | "Vinos Rosados"
-  | "Vinos Blancos"
-  | "Sidras y Champagne"
-  | "Drinks"
-
-type Meal = {
-  id: string
-  name: string
-  description: string
-  category: Category
-  available: boolean
-  price: number
-}
-
-type Filter = "all" | "available" | "hidden"
-
-type SortOption =
-  | "az"
-  | "za"
-  | "priceLow"
-  | "priceHigh"
-
-const categories: Category[] = [
-  "Cafetería",
-  "Cosas Dulces",
-  "Tortas",
-  "Desayunos",
-  "Brunch",
-  "Sandwiches",
-  "Entradas",
-  "Papas",
-  "Ensaladas",
-  "Pizzas",
-  "Milanesas",
-  "Grill",
-  "Elaborados",
-  "Pastas",
-  "Postres",
-  "Bebidas",
-  "Cervezas",
-  "Cervezas Artesanales",
-  "Vinos Tintos Malbec",
-  "Vinos Rosados",
-  "Vinos Blancos",
-  "Sidras y Champagne",
-  "Drinks",
-]
-
-const isCategory = (value: unknown): value is Category => {
-  return (
-    typeof value === "string" &&
-    categories.includes(value as Category)
-  )
-}
-
-const normalizeMeal = (
-  id: string,
-  data: Record<string, unknown>,
-): Meal | null => {
-
-  if (
-    typeof data.name !== "string" ||
-    typeof data.description !== "string" ||
-    typeof data.available !== "boolean" ||
-    typeof data.price !== "number" ||
-    !isCategory(data.category)
-  ) {
-    return null
-  }
-
-  return {
-    id,
-    name: data.name,
-    description: data.description,
-    category: data.category,
-    available: data.available,
-    price: data.price,
-  }
-}
 
 const Admin = () => {
 
@@ -159,6 +67,21 @@ const Admin = () => {
   const [newCategory, setNewCategory] = useState<Category>("Cafetería")
   const [newAvailable, setNewAvailable] = useState("true")
 
+  const adminTitleRef = useRef<HTMLHeadingElement>(null)
+  const shouldReturnFocus = useRef(false)
+
+  useEffect(() => {
+
+    if (!creatingMeal && !editingMeal && shouldReturnFocus.current) {
+
+      adminTitleRef.current?.focus()
+
+      shouldReturnFocus.current = false
+
+    }
+
+  }, [creatingMeal, editingMeal])
+
   useEffect(() => {
 
     if (!user || role !== "admin") {
@@ -172,18 +95,7 @@ const Admin = () => {
 
       try {
 
-        const mealsSnapshot = await getDocs(
-          collection(db, "comidas")
-        )
-
-        const firebaseMeals = mealsSnapshot.docs
-          .map((mealDocument) =>
-            normalizeMeal(
-              mealDocument.id,
-              mealDocument.data(),
-            )
-          )
-          .filter((meal): meal is Meal => meal !== null)
+        const firebaseMeals = await getMeals()
 
         setMeals(firebaseMeals)
 
@@ -270,12 +182,7 @@ const Admin = () => {
 
     try {
 
-      await updateDoc(
-        doc(db, "comidas", meal.id),
-        {
-          available: !meal.available,
-        }
-      )
+      await toggleMealAvailability(meal)
 
       setMeals((currentMeals) =>
         currentMeals.map((currentMeal) =>
@@ -317,6 +224,8 @@ const Admin = () => {
     setError("")
     setSuccess("")
 
+    shouldReturnFocus.current = true
+
     setEditingMeal(meal)
 
     setEditName(meal.name)
@@ -338,6 +247,8 @@ const Admin = () => {
 
     setError("")
     setSuccess("")
+
+    shouldReturnFocus.current = true
 
     setCreatingMeal(true)
 
@@ -394,25 +305,13 @@ const Admin = () => {
 
     try {
 
-      const mealDocument = await addDoc(
-        collection(db, "comidas"),
-        {
-          name,
-          description,
-          category: newCategory,
-          available,
-          price,
-        }
-      )
-
-      const newMeal: Meal = {
-        id: mealDocument.id,
+      const newMeal = await createMeal({
         name,
         description,
         category: newCategory,
         available,
         price,
-      }
+      })
 
       setMeals((currentMeals) => [
         ...currentMeals,
@@ -477,15 +376,13 @@ const Admin = () => {
 
     try {
 
-      await updateDoc(
-        doc(db, "comidas", editingMeal.id),
-        {
-          name,
-          description,
-          price,
-          available,
-        }
-      )
+      await updateMeal({
+        ...editingMeal,
+        name,
+        description,
+        price,
+        available,
+      })
 
       setMeals((currentMeals) =>
         currentMeals.map((meal) =>
@@ -551,18 +448,33 @@ const Admin = () => {
 
     return (
       <>
+
+        <SEO
+          title="Panel de administración | Mathilde Resto"
+          description="Panel de administración de Mathilde Resto."
+        />
+
         <Navbar/>
 
         <main className="admin">
 
-          <section className="adminForm">
+          <section
+            className="adminForm"
+            aria-labelledby="createMealTitle"
+          >
 
-            <h1 className="adminTitle">
+            <h1
+              className="adminTitle"
+              id="createMealTitle"
+            >
               Agregar comida
             </h1>
 
             {error && (
-              <p className="adminError">
+              <p
+                className="adminError"
+                role="alert"
+              >
                 {error}
               </p>
             )}
@@ -585,6 +497,7 @@ const Admin = () => {
                   value={newName}
                   onChange={(event) => setNewName(event.target.value)}
                   required
+                  autoFocus
                 />
 
               </div>
@@ -694,6 +607,7 @@ const Admin = () => {
                   className="btn adminButton"
                   type="submit"
                   disabled={saving}
+                  aria-busy={saving}
                 >
                   {saving ? "Agregando..." : "Agregar comida"}
                 </button>
@@ -726,14 +640,23 @@ const Admin = () => {
 
         <main className="admin">
 
-          <section className="adminForm">
+          <section
+            className="adminForm"
+            aria-labelledby="editMealTitle"
+          >
 
-            <h1 className="adminTitle">
+            <h1
+              className="adminTitle"
+              id="editMealTitle"
+            >
               Editar comida
             </h1>
 
             {error && (
-              <p className="adminError">
+              <p
+                className="adminError"
+                role="alert"
+              >
                 {error}
               </p>
             )}
@@ -756,6 +679,7 @@ const Admin = () => {
                   value={editName}
                   onChange={(event) => setEditName(event.target.value)}
                   required
+                  autoFocus
                 />
 
               </div>
@@ -853,6 +777,7 @@ const Admin = () => {
                   className="btn adminButton"
                   type="submit"
                   disabled={saving}
+                  aria-busy={saving}
                 >
                   {saving ? "Guardando..." : "Guardar cambios"}
                 </button>
@@ -883,9 +808,17 @@ const Admin = () => {
 
       <main className="admin">
 
-        <section className="adminPanel">
+        <section
+          className="adminPanel"
+          aria-labelledby="adminTitle"
+        >
 
-          <h1 className="adminTitle">
+          <h1
+            className="adminTitle"
+            id="adminTitle"
+            ref={adminTitleRef}
+            tabIndex={-1}
+          >
             Panel de administración
           </h1>
 
@@ -898,13 +831,20 @@ const Admin = () => {
           </p>
 
           {error && (
-            <p className="adminError">
+            <p
+              className="adminError"
+              role="alert"
+            >
               {error}
             </p>
           )}
 
           {success && (
-            <p className="adminSuccess">
+            <p
+              className="adminSuccess"
+              role="status"
+              aria-live="polite"
+            >
               {success}
             </p>
           )}
@@ -1015,13 +955,20 @@ const Admin = () => {
 
           {loadingMeals ? (
 
-            <p className="adminMessage">
+            <p
+              className="adminMessage"
+              role="status"
+              aria-live="polite"
+            >
               Cargando comidas...
             </p>
 
           ) : (
 
-            <section className="adminMeals">
+            <section
+              className="adminMeals"
+              aria-label="Listado de comidas"
+            >
 
               {filteredMeals.map((meal) => (
 
@@ -1032,9 +979,9 @@ const Admin = () => {
 
                   <div className="adminMealInfo">
 
-                    <p className="adminMealName">
+                    <h2 className="adminMealName">
                       {meal.name}
-                    </p>
+                    </h2>
 
                     <span className="adminMealStatus">
                       {meal.available ? "Disponible" : "Oculta"}
@@ -1058,6 +1005,7 @@ const Admin = () => {
                       type="button"
                       onClick={() => handleToggleAvailable(meal)}
                       disabled={saving}
+                      aria-busy={saving}
                     >
                       {saving
                         ? "Guardando..."

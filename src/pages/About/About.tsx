@@ -1,5 +1,6 @@
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
+import SEO from "../../components/SEO/SEO"
 
 import "./_about.scss"
 
@@ -8,19 +9,37 @@ import Logo from "../../assets/img/icons/mathilde.png"
 const About = () => {
   return (
     <>
+
+      <SEO
+        title="Nosotros | Mathilde Resto"
+        description="Conocé Mathilde Resto y encontranos en Guernica, Buenos Aires."
+      />
+
       <Navbar/>
 
       <main className="about">
 
-        <p className="aboutTitle">¿Dónde estamos?</p>
+        <h1 className="aboutTitle">
+          ¿Dónde estamos?
+        </h1>
 
-        <p className="aboutDescription">Guernica, Calle 6 N° 110</p>
+        <p className="aboutDescription">
+          Guernica, Calle 6 N° 110
+        </p>
 
-        <p className="aboutDescription">¡Te esperamos!</p>
+        <p className="aboutDescription">
+          ¡Te esperamos!
+        </p>
 
-        <img className="aboutLogo" src={Logo} alt="Mathilde Resto Logo"/>
+        <img
+          className="aboutLogo"
+          src={Logo}
+          alt="Mathilde Resto"
+        />
 
-        <p className="aboutHero">Since 2013</p>
+        <p className="aboutHero">
+          Since 2013
+        </p>
 
         <iframe
           className="aboutMap"

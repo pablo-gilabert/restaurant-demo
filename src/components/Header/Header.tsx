@@ -10,17 +10,30 @@ const Header = () => {
 
     <div className="headerWrapper">
 
-      <img className="background" src={Fondo} alt="Almuerzo completo"/>
+      <img
+        className="background"
+        src={Fondo}
+        alt=""
+        aria-hidden="true"
+      />
 
       <Navbar/>
 
       <header className="header">
 
-        <img src={Mathilde} alt="Mathilde Resto Logo" className="logo"/>
+        <img
+          src={Mathilde}
+          alt="Mathilde Resto"
+          className="logo"
+        />
 
-        <h1 className="headerTitle">Mathilde Resto</h1>
+        <h1 className="headerTitle">
+          Mathilde Resto
+        </h1>
 
-        <p className="headerHero">En Mathilde, cada comida es un momento para disfrutar</p>
+        <p className="headerHero">
+          En Mathilde, cada comida es un momento para disfrutar
+        </p>
 
       </header>
     </div>

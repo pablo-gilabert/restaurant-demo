@@ -8,12 +8,24 @@ const Footer = () => {
   return (
     <footer className="footer">
 
-      <img className="footerBackground" src={FooterBack} alt="Almuerzo completo"/>
+      <img
+        className="footerBackground"
+        src={FooterBack}
+        alt=""
+        aria-hidden="true"
+      />
 
-      <p className="footerHero">Estamos listos para entregarte la mejor experiencia</p>
+      <p className="footerHero">
+        Estamos listos para entregarte la mejor experiencia
+      </p>
 
-      <Link to="/reservations" className="footerButton"> Reserva ahora</Link>
-      
+      <Link
+        to="/reservations"
+        className="footerButton"
+      >
+        Reserva ahora
+      </Link>
+
     </footer>
   )
 }

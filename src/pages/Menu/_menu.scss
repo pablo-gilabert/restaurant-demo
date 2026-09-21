@@ -15,6 +15,14 @@
   text-align: center;
 }
 
+.menuTitle {
+  margin-bottom: 2rem;
+
+  color: variables.$color-font-gold;
+  font-family: variables.$font-secondary;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
 .menuCategories {
   width: 90%;
   margin: 0 auto 5rem;
@@ -41,6 +49,11 @@
     color: black;
   }
 
+  &:focus-visible {
+    background-color: variables.$color-font-gold;
+    color: black;
+  }
+
   &--active {
     background-color: variables.$color-font-gold;
     color: black;
@@ -62,6 +75,17 @@
 .mealDivider {
   height: 1px;
   background-color: variables.$color-font-gold;
+}
+
+.menuMessage {
+  margin: 2rem auto;
+
+  color: variables.$color-font;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+}
+
+.menuMessage--error {
+  color: #ffb3b1;
 }
 
 .menuPrompt {

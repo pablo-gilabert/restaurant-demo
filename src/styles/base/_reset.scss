@@ -39,3 +39,10 @@ a {
   text-decoration: none;
 
 }
+
+:focus-visible {
+
+  outline: 3px solid #f3d382;
+  outline-offset: 3px;
+
+}

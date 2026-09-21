@@ -77,14 +77,24 @@
   color: variables.$color-font;
 }
 
+.loginButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.loginButton:disabled:hover {
+  background-color: variables.$color-font-gold;
+  color: variables.$color-primary;
+}
+
 .loginError {
   margin-bottom: 1rem;
-  color: #dc3545;
+  color: #ffb3b1;
 }
 
 .loginUser {
   margin-top: 1rem;
   color: variables.$color-font;
-  
+
   text-align: center;
 }

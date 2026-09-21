@@ -1,81 +1,26 @@
 import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore"
-
-import {
   useEffect,
   useState,
 } from "react"
 
-import { db } from "../../firebase/config"
+import {
+  categories,
+} from "../../data/categories"
+
+import {
+  getMeals,
+} from "../../services/meals"
+
+import type {
+  Category,
+  Meal,
+} from "../../types/meal"
 
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
+import SEO from "../../components/SEO/SEO"
 
 import "./_menu.scss"
-
-type Category =
-  | "Cafetería"
-  | "Cosas Dulces"
-  | "Tortas"
-  | "Desayunos"
-  | "Brunch"
-  | "Sandwiches"
-  | "Entradas"
-  | "Papas"
-  | "Ensaladas"
-  | "Pizzas"
-  | "Milanesas"
-  | "Grill"
-  | "Elaborados"
-  | "Pastas"
-  | "Postres"
-  | "Bebidas"
-  | "Cervezas"
-  | "Cervezas Artesanales"
-  | "Vinos Tintos Malbec"
-  | "Vinos Rosados"
-  | "Vinos Blancos"
-  | "Sidras y Champagne"
-  | "Drinks"
-
-type Meal = {
-  id: string
-  name: string
-  description: string
-  category: Category
-  available: boolean
-  price: number
-}
-
-const categories: Category[] = [
-  "Cafetería",
-  "Cosas Dulces",
-  "Tortas",
-  "Desayunos",
-  "Brunch",
-  "Sandwiches",
-  "Entradas",
-  "Papas",
-  "Ensaladas",
-  "Pizzas",
-  "Milanesas",
-  "Grill",
-  "Elaborados",
-  "Pastas",
-  "Postres",
-  "Bebidas",
-  "Cervezas",
-  "Cervezas Artesanales",
-  "Vinos Tintos Malbec",
-  "Vinos Rosados",
-  "Vinos Blancos",
-  "Sidras y Champagne",
-  "Drinks",
-]
 
 const Menu = () => {
 
@@ -83,29 +28,33 @@ const Menu = () => {
 
   const [meals, setMeals] = useState<Meal[]>([])
 
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
   useEffect(() => {
 
     const fetchMeals = async () => {
 
+      setLoading(true)
+      setError("")
+
       try {
 
-        const mealsQuery = query(
-          collection(db, "comidas"),
-          where("available", "==", true)
-        )
-
-        const mealsSnapshot = await getDocs(mealsQuery)
-
-        const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        } as Meal))
+        const firebaseMeals = await getMeals(true)
 
         setMeals(firebaseMeals)
 
       } catch (error) {
 
         console.error("Error al obtener las comidas:", error)
+
+        setError(
+          "No se pudo cargar la carta. Intentá nuevamente."
+        )
+
+      } finally {
+
+        setLoading(false)
 
       }
     }
@@ -120,11 +69,21 @@ const Menu = () => {
 
   return (
     <>
+
+      <SEO
+        title="Carta | Mathilde Resto"
+        description="Conocé la carta de Mathilde Resto: desayunos, entradas, platos principales, 
+        postres, bebidas y más."
+      />
+
       <Navbar/>
 
       <main className="menu">
 
-        <div className="menuCategories overflow-auto">
+        <nav
+          className="menuCategories overflow-auto"
+          aria-label="Categorías de la carta"
+        >
 
           <div className="d-flex flex-nowrap gap-2">
 
@@ -137,6 +96,8 @@ const Menu = () => {
                   selectedCategory === category ? "menuCategory--active" : ""
                 }`}
                 onClick={() => setSelectedCategory(category)}
+                aria-pressed={selectedCategory === category}
+                aria-controls="menuMeals"
               >
                 {category}
               </button>
@@ -145,47 +106,93 @@ const Menu = () => {
 
           </div>
 
-        </div>
+        </nav>
 
-        <section className="menuContent">
+        <section
+          className="menuContent"
+          id="menuMeals"
+          aria-labelledby="menuTitle"
+        >
 
-          <div className="meals">
+          <h1
+            className="menuTitle"
+            id="menuTitle"
+          >
+            Nuestra carta
+          </h1>
 
-            {filteredMeals.map((meal) => (
+          {loading && (
+            <p
+              className="menuMessage"
+              role="status"
+              aria-live="polite"
+            >
+              Cargando carta...
+            </p>
+          )}
 
-              <article
-                className="meal"
-                key={meal.id}
-              >
+          {error && (
+            <p
+              className="menuMessage menuMessage--error"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
 
-                <p className="mealName">
-                  {meal.name}
-                </p>
+          {!loading && !error && selectedCategory && filteredMeals.length === 0 && (
+            <p className="menuMessage">
+              No hay comidas disponibles en esta categoría.
+            </p>
+          )}
 
-                {meal.description && (
-                  <p className="mealDescription">
-                    {meal.description}
-                  </p>
-                )}
+          {!loading && !error && selectedCategory && filteredMeals.length > 0 && (
 
-                {meal.price > 0 && (
-                  <span>
-                    ${meal.price}
-                  </span>
-                )}
+            <div className="meals">
 
-                <div className="mealDivider"/>
+              {filteredMeals.map((meal) => (
 
-              </article>
+                <article
+                  className="meal"
+                  key={meal.id}
+                >
 
-            ))}
+                  <h2 className="mealName">
+                    {meal.name}
+                  </h2>
 
-          </div>
+                  {meal.description && (
+                    <p className="mealDescription">
+                      {meal.description}
+                    </p>
+                  )}
+
+                  {meal.price > 0 && (
+                    <span>
+                      ${meal.price}
+                    </span>
+                  )}
+
+                  <div
+                    className="mealDivider"
+                    aria-hidden="true"
+                  />
+
+                </article>
+
+              ))}
+
+            </div>
+
+          )}
 
         </section>
 
-        {!selectedCategory && (
-          <p className="menuPrompt">
+        {!loading && !error && !selectedCategory && (
+          <p
+            className="menuPrompt"
+            role="status"
+          >
             ¡Elegí una categoría y comenzá a explorar!
           </p>
         )}
