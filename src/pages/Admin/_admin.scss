@@ -1,0 +1,192 @@
+@use "../../styles/abstracts/variables";
+
+.admin {
+  width: min(90%, 80rem);
+  margin: 0 auto;
+
+  padding: 3rem 0;
+  color: variables.$color-font;
+
+  font-family: variables.$font-primary;
+}
+
+.adminPanel {
+  width: 100%;
+}
+
+.adminForm {
+  width: min(100%, 40rem);
+  margin: 0 auto;
+}
+
+.adminTitle {
+  margin-bottom: 1.5rem;
+  color: variables.$color-font-gold;
+
+  font-family: variables.$font-secondary;
+  font-size: clamp(2rem, 4vw, 3rem);
+
+  text-align: center;
+}
+
+.adminMessage {
+  max-width: 55rem;
+  margin: 0 auto 1rem;
+
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+.adminControls {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  gap: 1rem;
+  margin: 3rem 0;
+}
+
+.adminInput {
+  border: 1px solid variables.$color-secondary;
+  background-color: variables.$color-primary;
+
+  color: variables.$color-font;
+}
+
+.adminInput::placeholder {
+  color: variables.$color-font;
+  opacity: 0.6;
+}
+
+.adminInput:focus {
+  border-color: variables.$color-font-gold;
+  background-color: variables.$color-primary;
+
+  color: variables.$color-font;
+  box-shadow: 0 0 8px rgba(243, 211, 130, 0.3);
+}
+
+.adminInput:disabled {
+  border-color: variables.$color-secondary;
+  background-color: variables.$color-secondary;
+
+  color: variables.$color-font;
+  opacity: 0.8;
+}
+
+.adminMeals {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+.adminMeal {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 1rem;
+  border: 1px solid variables.$color-secondary;
+
+  border-radius: 12px;
+  background-color: rgba(9, 20, 19, 0.8);
+}
+
+.adminMealInfo {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  min-width: 0;
+}
+
+.adminMealName {
+  margin: 0;
+  color: variables.$color-font;
+
+  font-family: variables.$font-secondary;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+.adminMealStatus {
+  flex-shrink: 0;
+  padding: 0.25rem 0.5rem;
+
+  border-radius: 8px;
+  background-color: variables.$color-secondary;
+
+  color: variables.$color-font;
+  font-size: 0.85rem;
+}
+
+.adminMealActions {
+  display: flex;
+  flex-shrink: 0;
+
+  gap: 0.5rem;
+}
+
+.adminButton {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+
+  background-color: variables.$color-font-gold;
+  color: black;
+
+  font-family: variables.$font-secondary;
+}
+
+.adminButton:hover {
+  background-color: variables.$color-secondary;
+  color: variables.$color-font;
+}
+
+.adminButton--secondary {
+  background-color: variables.$color-secondary;
+  color: variables.$color-font;
+}
+
+.adminButton--secondary:hover {
+  background-color: variables.$color-font-gold;
+  color: black;
+}
+
+.adminFormActions {
+  display: flex;
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+
+  .adminControls {
+    grid-template-columns: 1fr;
+  }
+
+  .adminMeal {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adminMealInfo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adminMealActions {
+    width: 100%;
+  }
+
+  .adminButton {
+    flex: 1;
+  }
+
+  .adminFormActions {
+    flex-direction: column;
+  }
+}

@@ -1,4 +1,9 @@
-import { collection, getDocs } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from "../../firebase/config"
 
@@ -73,24 +78,35 @@ const Menu = () => {
 
   const [meals, setMeals] = useState<Meal[]>([])
 
-  useEffect(() => {
+useEffect(() => {
 
-    const fetchMeals = async () => {
+  const fetchMeals = async () => {
 
-      try {
+    try {
 
-        const mealsSnapshot = await getDocs (collection(db, "comidas"))
+      const mealsQuery = query(
+        collection(db, "comidas"),
+        where("available", "==", true)
+      )
 
-        const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()} as Meal))
+      const mealsSnapshot = await getDocs(mealsQuery)
 
-        setMeals(firebaseMeals)
+      const firebaseMeals: Meal[] = mealsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      } as Meal))
 
-      } catch (error) {
-        console.error("Error al obtener las comidas:", error)
-      }
+      setMeals(firebaseMeals)
+
+    } catch (error) {
+
+      console.error("Error al obtener las comidas:", error)
+
     }
+  }
 
-    fetchMeals()
+  fetchMeals()
+
   }, [])
 
   const filteredMeals = meals.filter ((meal) => 

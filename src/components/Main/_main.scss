@@ -5,11 +5,11 @@
   font-family: variables.$font-secondary;
 
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .mainTitle {
-  margin-top: clamp(8rem, 10vw, 12rem);
-  font-size: clamp(1.5rem, 2vw, 3.125rem);
+  margin-top: 5rem;
 }
 
 .section {
@@ -20,6 +20,7 @@
   width: 80%;
 
   margin: 0 auto;
+  text-align: center;
 }
 
 .mainImage {

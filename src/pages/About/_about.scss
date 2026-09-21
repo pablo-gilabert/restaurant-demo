@@ -1,19 +1,13 @@
 @use "../../styles/abstracts/variables";
 
 .about {
-
-  font-size: clamp(1.25rem, 2vw, 2.5rem);
-
+  font-size: 1.5rem;
   text-align: center;
-
 }
 
 .aboutTitle {
-
   margin-top: clamp(3rem, 8vw, 10rem);
-
   color: variables.$color-font-gold;
-
 }
 
 .aboutDescription {
@@ -21,33 +15,23 @@
 }
 
 .aboutLogo {
-
   display: block;
-
   width: min(70%, 15rem);
 
   margin: 0 auto;
-
 }
 
 .aboutHero {
-
   margin-bottom: 25%;
-
   color: variables.$color-font;
-
 }
 
 .aboutMap {
-
   display: block;
-
   width: 80%;
 
   height: clamp(400px, 40vw, 1200px);
-
   margin: 0 auto;
 
   border-radius: 12px;
-
 }

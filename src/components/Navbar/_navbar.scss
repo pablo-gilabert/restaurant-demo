@@ -2,30 +2,31 @@
 
 .navbar {
   color: variables.$color-font;
-
   font-family: variables.$font-primary;
+
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .navbarContent {
   width: 100%;
+  text-align: center;
 }
 
 .navbarHeader {
   display: flex;
-
   align-items: center;
+
   justify-content: space-between;
 }
 
 .navbarLogoLink {
   display: block;
-
   width: 6.5rem;
 }
 
 .navbarLogo {
   display: block;
-
   width: 100%;
 }
 
@@ -42,34 +43,30 @@
 }
 
 .navbarMenu {
-
   display: grid;
-
   justify-items: center;
+
   gap: 0.75rem;
-
   padding: 2rem 0;
-
-  font-size: clamp(1.5rem, 1vw, 2.5rem);
-
-  text-align: center;
-
 }
 
 .navbarLink {
-
   &:hover {
     color: variables.$color-font-gold;
   }
+}
 
+.navbarAdminLink {
+  color: variables.$color-font-gold;
+}
+
+.navbarAdminLink:hover {
+  color: variables.$color-font;
 }
 
 @media (min-width: 1024px) {
-
   .navbarMenu {
     display: flex;
-
     justify-content: space-around;
   }
-
 }

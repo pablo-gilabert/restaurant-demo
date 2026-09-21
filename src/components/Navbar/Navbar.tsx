@@ -1,13 +1,28 @@
-import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import {
+  useContext,
+  useEffect,
+  useState,
+} from "react"
+
+import {
+  Link,
+} from "react-router-dom"
 
 import Mathilde from "../../assets/img/icons/mathilde.png"
+
+import {
+  AuthContext,
+} from "../../context/AuthContext"
 
 import "./_navbar.scss"
 
 const Navbar = () => {
 
-  //USE EFFECT & USE REFT TO HIDE THE BUTTON LOGO ON DESKTOP
+  const {
+    user,
+    role,
+  } = useContext(AuthContext)
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
 
   useEffect(() => {
@@ -21,6 +36,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("resize", handleResize)
     }
+
   }, [])
 
   return (
@@ -30,7 +46,6 @@ const Navbar = () => {
 
         <div className="navbarHeader">
 
-          {/* CONDITIONAL RENDER */}
           {isMobile && (
             <Link to="/" className="navbarLogoLink">
               <img className="navbarLogo" src={Mathilde} alt="Mathilde Resto"/>
@@ -52,15 +67,31 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse navbarMenu" id="navbarMenu">
 
-          <Link className="navbarLink" to="/">Inicio</Link>
+          <Link className="navbarLink" to="/">
+            Inicio
+          </Link>
 
-          <Link className="navbarLink" to="/menu">Carta</Link>
+          <Link className="navbarLink" to="/menu">
+            Carta
+          </Link>
 
-          <Link className="navbarLink" to="/reservations">Reservaciones</Link>
+          {user && role === "admin" && (
+            <Link className="navbarLink navbarAdminLink" to="/admin">
+              Panel de Control
+            </Link>
+          )}
 
-          <Link className="navbarLink" to="/about">Nosotros</Link>
+          <Link className="navbarLink" to="/reservations">
+            Reservaciones
+          </Link>
 
-          <Link className="navbarLink" to="/login">Sesión</Link>
+          <Link className="navbarLink" to="/about">
+            Nosotros
+          </Link>
+
+          <Link className="navbarLink" to="/login">
+            Sesión
+          </Link>
 
         </div>
 

@@ -8,6 +8,7 @@
   min-height: 70vh;
 
   padding: 3rem 1rem;
+  text-align: center;
 }
 
 .loginForm {
@@ -74,4 +75,16 @@
 .loginButton:hover {
   background-color: variables.$color-secondary;
   color: variables.$color-font;
+}
+
+.loginError {
+  margin-bottom: 1rem;
+  color: #dc3545;
+}
+
+.loginUser {
+  margin-top: 1rem;
+  color: variables.$color-font;
+  
+  text-align: center;
 }

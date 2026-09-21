@@ -11,6 +11,7 @@ import Menu from "./pages/Menu/Menu"
 import Reservations from "./pages/Reservations/Reservations"
 import About from "./pages/About/About"
 import Login from "./pages/Login/Login"
+import Admin from "./pages/Admin/Admin"
 
 const App = () => {
   const location = useLocation()
@@ -30,6 +31,8 @@ const App = () => {
         <Route path="/about" element={<About/>}/>
 
         <Route path="/login" element={<Login/>}/>
+
+        <Route path="/admin" element={<Admin/>}/>
 
       </Routes>
     </>

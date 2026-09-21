@@ -2,18 +2,12 @@
 
 .footer {
   position: relative;
-
   display: flex;
+
   flex-direction: column;
   align-items: center;
 
-  margin-top: 8rem auto;
-  padding: 5rem 1rem;
-
-  text-align: center;
-  text-shadow: 2px 2px 2px black;
-
-  font-size: clamp(20px, 2vw, 40px);
+  margin-top: 10rem;
 }
 
 .footerBackground {
@@ -21,29 +15,48 @@
   z-index: -1;
 
   width: 100%;
-
   height: 100%;
+
   object-fit: cover;
 }
 
 .footerHero {
   margin-top: 5rem;
   color: variables.$color-font-gold;
+
+  text-align: center;
+  width: 80%;
+
+  text-shadow: 2px 2px 2px black;
 }
 
 .footerButton {
-  margin-top: 4rem;
-  padding: 0.8rem 1.2rem;
-
+  padding: 1rem;
   border-radius: 12px;
-  background-color: variables.$color-font-gold;
 
+  background-color: variables.$color-font-gold;
   color: black;
+
   font-family: variables.$font-secondary;
-  
-  text-shadow: none;
+  margin: 3rem auto;
+}
+
+.footerHero, .footerButton {
+  font-size: 1.25rem;
 }
 
 .footerButton:hover {
   box-shadow: 0 0 15px black;
+}
+
+@media (min-width: 1024px) {
+  .footerHero, .footerButton {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  .footerHero, .footerButton {
+    font-size: 2.1875rem;
+  }
 }
