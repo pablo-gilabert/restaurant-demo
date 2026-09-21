@@ -1,32 +1,82 @@
-# React + TypeScript + Vite
+# Mathilde Resto
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Sitio web para restaurante desarrollado con React, TypeScript, Vite, Sass, Bootstrap y Firebase.
 
-Currently, two official plugins are available:
+El proyecto está pensado como una aplicación frontend moderna para presentar la carta del restaurante, gestionar el contenido desde un panel administrativo y ofrecer información y canales de contacto para reservas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Características
 
-## React Compiler
+- Página de inicio con presentación visual del restaurante.
+- Carta dinámica conectada a Firestore.
+- Categorías de comidas.
+- Visualización pública únicamente de comidas disponibles.
+- Panel de administración protegido mediante Firebase Authentication.
+- Creación y edición de comidas.
+- Activación y desactivación de disponibilidad.
+- Validación de datos antes de guardar información en Firestore.
+- Control de roles mediante una colección `users`.
+- Reglas de seguridad de Firestore.
+- Página de inicio de sesión y cierre de sesión.
+- Página de reservas mediante WhatsApp.
+- Página de información y ubicación del restaurante.
+- Página 404 para rutas inexistentes.
+- Navegación con React Router.
+- Scroll automático al cambiar de ruta.
+- SEO básico mediante títulos y meta descriptions por página.
+- Diseño responsive.
+- Consideraciones de accesibilidad en navegación, formularios, mensajes y controles.
+- Arquitectura separada por componentes, páginas, servicios, contexto, tipos y estilos.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tecnologías
 
-## Expanding the Oxlint configuration
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Sass / SCSS
+- Bootstrap
+- Firebase
+  - Authentication
+  - Firestore
+- Oxlint
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Arquitectura
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+La aplicación utiliza una estructura organizada por responsabilidades:
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+```text
+src/
+├── components/
+│   ├── Footer/
+│   ├── Header/
+│   ├── Main/
+│   ├── Navbar/
+│   ├── ScrollToTop/
+│   └── SEO/
+├── context/
+│   └── AuthContext.tsx
+├── data/
+│   └── categories.ts
+├── firebase/
+│   └── config.ts
+├── pages/
+│   ├── About/
+│   ├── Admin/
+│   ├── Home/
+│   ├── Login/
+│   ├── Menu/
+│   ├── NotFound/
+│   └── Reservations/
+├── services/
+│   └── meals.ts
+├── styles/
+│   ├── abstracts/
+│   │   └── _variables.scss
+│   ├── base/
+│   │   ├── _global.scss
+│   │   └── _reset.scss
+│   └── main.scss
+├── types/
+│   └── meal.ts
+├── App.tsx
+└── main.tsx
