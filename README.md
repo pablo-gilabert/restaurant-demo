@@ -8,6 +8,16 @@ La aplicación utiliza Firebase Authentication para la autenticación de usuario
 
 ---
 
+## Deployment disponible en Vercel y Firebase:
+
+# Vercel:
+https://restaurant-demo-nrnl0eeg4-pablo-gilabert-s-projects.vercel.app/
+
+# Firebase:
+https://restaurant-demo-25143.web.app/login
+
+---
+
 ## Montando App
 
 Descargar ZIP desde GitHub
