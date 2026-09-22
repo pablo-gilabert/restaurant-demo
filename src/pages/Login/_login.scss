@@ -1,3 +1,4 @@
+@use "../../styles/abstracts/mixins";
 @use "../../styles/abstracts/variables";
 
 .login {
@@ -5,96 +6,63 @@
   align-items: center;
 
   justify-content: center;
-  min-height: 70vh;
+  min-height: 70svh;
 
   padding: 3rem 1rem;
   text-align: center;
 }
 
 .loginForm {
-  width: min(90%, 30rem);
-  padding: 2rem;
+  width: min(100%, 30rem);
+  padding: clamp(1.25rem, 4vw, 2rem);
 
-  border-radius: 12px;
-  background-color: rgba(9, 20, 19, 0.9);
+  border-radius: variables.$radius-medium;
+  background-color: variables.$surface-dark;
 
-  box-shadow: 0 0 12px rgba(243, 211, 130, 0.2);
-  color: variables.$color-font;
-
-  font-family: variables.$font-primary;
+  box-shadow: 0 0 0.75rem rgba(243, 211, 130, 0.2);
 }
 
 .loginTitle {
   margin-bottom: 2rem;
   color: variables.$color-font-gold;
 
-  font-family: variables.$font-secondary;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-
-  text-align: center;
+  @include mixins.fluid-font;
 }
 
-.form-label {
+.loginField {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.loginLabel {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+
   color: variables.$color-font-gold;
   font-family: variables.$font-secondary;
 }
 
 .loginInput {
-  border: 1px solid variables.$color-secondary;
-
-  background-color: variables.$color-primary;
-  color: variables.$color-font;
-}
-
-.loginInput::placeholder {
-  color: variables.$color-font;
-  opacity: 0.6;
-}
-
-.loginInput:focus {
-  border-color: variables.$color-font-gold;
-  background-color: variables.$color-primary;
-
-  color: variables.$color-font;
-  box-shadow: 0 0 8px rgba(243, 211, 130, 0.3);
+  @include mixins.field-control;
 }
 
 .loginButton {
   width: 100%;
   margin-top: 1rem;
 
-  padding: 0.75rem;
-  background-color: variables.$color-font-gold;
+  @include mixins.gold-action;
 
-  color: variables.$color-primary;
-  font-family: variables.$font-secondary;
-
-  font-size: 1.1rem;
-}
-
-.loginButton:hover {
-  background-color: variables.$color-secondary;
-  color: variables.$color-font;
-}
-
-.loginButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.loginButton:disabled:hover {
-  background-color: variables.$color-font-gold;
-  color: variables.$color-primary;
+  &:disabled:hover {
+    background-color: variables.$color-font-gold;
+    color: variables.$color-primary;
+  }
 }
 
 .loginError {
   margin-bottom: 1rem;
-  color: #ffb3b1;
+  color: variables.$color-error;
 }
 
 .loginUser {
   margin-top: 1rem;
-  color: variables.$color-font;
-
-  text-align: center;
 }

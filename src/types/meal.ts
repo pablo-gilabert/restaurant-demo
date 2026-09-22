@@ -1,28 +1,8 @@
-export type Category =
-  | "Cafetería"
-  | "Cosas Dulces"
-  | "Tortas"
-  | "Desayunos"
-  | "Brunch"
-  | "Sandwiches"
-  | "Entradas"
-  | "Papas"
-  | "Ensaladas"
-  | "Pizzas"
-  | "Milanesas"
-  | "Grill"
-  | "Elaborados"
-  | "Pastas"
-  | "Postres"
-  | "Bebidas"
-  | "Cervezas"
-  | "Cervezas Artesanales"
-  | "Vinos Tintos Malbec"
-  | "Vinos Rosados"
-  | "Vinos Blancos"
-  | "Sidras y Champagne"
-  | "Drinks"
+import type { Category } from "../data/categories"
 
+export type { Category } from "../data/categories"
+
+// Represents a normalized meal used by the public menu and administration panel.
 export type Meal = {
   id: string
   name: string
@@ -32,13 +12,5 @@ export type Meal = {
   price: number
 }
 
-export type Filter =
-  | "all"
-  | "available"
-  | "hidden"
-
-export type SortOption =
-  | "az"
-  | "za"
-  | "priceLow"
-  | "priceHigh"
+export type Filter = "all" | "available" | "hidden"
+export type SortOption = "az" | "za" | "priceLow" | "priceHigh"

@@ -1,55 +1,25 @@
-import {
-  Link,
-} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
+import Navbar from "../../components/Navbar/Navbar"
 import SEO from "../../components/SEO/SEO"
 
 import "./_notFound.scss"
 
+// Handles unknown routes and gives users a clear path back to the home page.
 const NotFound = () => {
   return (
     <>
-
-      <SEO
-        title="Página no encontrada | Mathilde Resto"
-        description="La página que estás buscando no existe."
-      />
-
+      <SEO title="Página no encontrada | Mathilde Resto" description="La página que estás buscando no existe."/>
       <Navbar/>
 
-      <main
-        className="notFound"
-        aria-labelledby="notFoundTitle"
-      >
-
+      <main className="notFound" aria-labelledby="notFoundTitle">
         <div className="notFoundContent">
-
-          <p className="notFoundCode">
-            404
-          </p>
-
-          <h1
-            className="notFoundTitle"
-            id="notFoundTitle"
-          >
-            Página no encontrada
-          </h1>
-
-          <p className="notFoundMessage">
-            La página que estás buscando no existe o fue movida.
-          </p>
-
-          <Link
-            className="notFoundButton"
-            to="/"
-          >
-            Volver al inicio
-          </Link>
-
+          <p className="notFoundCode">404</p>
+          <h1 className="notFoundTitle" id="notFoundTitle">Página no encontrada</h1>
+          <p className="notFoundMessage">La página que estás buscando no existe o fue movida.</p>
+          <Link className="notFoundButton" to="/">Volver al inicio</Link>
         </div>
-
       </main>
 
       <Footer/>

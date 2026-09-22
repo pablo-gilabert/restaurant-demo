@@ -1,37 +1,38 @@
+@use "../../styles/abstracts/mixins";
 @use "../../styles/abstracts/variables";
 
 .about {
-  font-size: 1.5rem;
+  padding-top: clamp(3rem, 8vw, 8rem);
   text-align: center;
+
+  @include mixins.fluid-font;
 }
 
-.aboutTitle {
-  margin-top: clamp(3rem, 8vw, 10rem);
-  color: variables.$color-font-gold;
-}
-
+.aboutTitle,
 .aboutDescription {
   color: variables.$color-font-gold;
 }
 
-.aboutLogo {
-  display: block;
-  width: min(70%, 15rem);
+.aboutTitle {
+  margin-bottom: 1rem;
+}
 
-  margin: 0 auto;
+.aboutLogo {
+  width: min(70%, 15rem);
+  margin: 2rem auto 0;
 }
 
 .aboutHero {
-  margin-bottom: 25%;
-  color: variables.$color-font;
+  margin-bottom: clamp(3rem, 10vw, 8rem);
 }
 
 .aboutMap {
   display: block;
-  width: 80%;
+  width: min(90%, 70rem);
 
-  height: clamp(400px, 40vw, 1200px);
-  margin: 0 auto;
+  height: clamp(20rem, 50vw, 40rem);
+  margin-inline: auto;
 
-  border-radius: 12px;
+  border: 0;
+  border-radius: variables.$radius-medium;
 }

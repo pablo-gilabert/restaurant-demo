@@ -1,21 +1,13 @@
-import {
-  useEffect,
-} from "react"
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
-import {
-  useLocation,
-} from "react-router-dom"
-
+// Restores the viewport to the top whenever the active route changes.
 const ScrollToTop = () => {
-  const location = useLocation()
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    })
-  }, [location.key])
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+  }, [pathname])
 
   return null
 }

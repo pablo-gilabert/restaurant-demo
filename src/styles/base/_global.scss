@@ -1,10 +1,24 @@
 @use "../abstracts/variables";
 
 body {
+  min-width: 20rem;
+  min-height: 100vh;
 
   background-color: variables.$color-primary;
   color: variables.$color-font;
 
   font-family: variables.$font-primary;
+  font-size: variables.$font-size-base;
 
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  font-family: variables.$font-secondary;
+}
+
+#root {
+  min-height: 100vh;
 }

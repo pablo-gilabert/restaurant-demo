@@ -1,3 +1,4 @@
+@use "../../styles/abstracts/mixins";
 @use "../../styles/abstracts/variables";
 
 .menu {
@@ -5,71 +6,91 @@
   text-align: center;
 }
 
-.menuContent {
-  width: 80%;
-  margin: 0 auto;
-
-  color: variables.$color-font;
-  font-family: variables.$font-primary;
-
-  text-align: center;
-}
-
-.menuTitle {
-  margin-bottom: 2rem;
-
-  color: variables.$color-font-gold;
-  font-family: variables.$font-secondary;
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
 .menuCategories {
-  width: 90%;
-  margin: 0 auto 5rem;
+  width: min(90%, variables.$content-width);
+  margin: 0 auto 4rem;
+
+  overflow-x: auto;
+  scrollbar-color: variables.$color-font-gold transparent;
 
   scrollbar-width: thin;
-  scrollbar-color: variables.$color-font-gold transparent;
+  cursor: grab;
+
+  touch-action: pan-y;
+  user-select: none;
+
+  &--dragging {
+    cursor: grabbing;
+  }
+}
+
+.menuCategoryList {
+  display: flex;
+  gap: 0.75rem;
+
+  width: max-content;
+  min-width: 100%;
 }
 
 .menuCategory {
   flex-shrink: 0;
-  margin: 1rem auto;
+  margin: 1rem 0;
 
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  border-radius: variables.$radius-medium;
 
   background-color: variables.$color-secondary;
   color: variables.$color-font;
 
   font-family: variables.$font-secondary;
-  font-size: clamp(1.25rem, 2vw, 2.5rem);
+  transition: background-color variables.$transition-fast, color variables.$transition-fast;
 
-  &:hover {
-    background-color: variables.$color-font-gold;
-    color: black;
-  }
+  @include mixins.fluid-font;
 
-  &:focus-visible {
-    background-color: variables.$color-font-gold;
-    color: black;
-  }
-
+  &:hover,
+  &:focus-visible,
   &--active {
     background-color: variables.$color-font-gold;
-    color: black;
+    color: variables.$color-primary;
   }
+}
+
+.menuContent {
+  @include mixins.content-container(60rem);
+}
+
+.menuTitle {
+  margin-bottom: 2rem;
+  color: variables.$color-font-gold;
+
+  @include mixins.fluid-font;
+}
+
+.meals {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.meal {
+  text-align: left;
 }
 
 .mealName {
-  margin: 0.25rem auto;
-  font-size: clamp(1.5rem, 2vw, 2.8125rem);
+  margin-bottom: 0.25rem;
+
+  @include mixins.fluid-font;
 }
 
 .mealDescription {
-  margin: 0.25rem auto;
+  margin-bottom: 0.5rem;
   font-family: variables.$font-secondary;
 
-  font-size: clamp(1.25rem, 1vw, 2.1875rem);
+  @include mixins.fluid-font;
+}
+
+.mealPrice {
+  display: inline-block;
+  margin-bottom: 0.75rem;
 }
 
 .mealDivider {
@@ -77,18 +98,18 @@
   background-color: variables.$color-font-gold;
 }
 
-.menuMessage {
+.menuMessage,
+.menuPrompt {
   margin: 2rem auto;
 
-  color: variables.$color-font;
-  font-size: clamp(1.25rem, 2vw, 2rem);
+  @include mixins.fluid-font;
 }
 
 .menuMessage--error {
-  color: #ffb3b1;
+  color: variables.$color-error;
 }
 
 .menuPrompt {
+  width: min(90%, 50rem);
   color: variables.$color-font-gold;
-  font-size: clamp(1.25rem, 2vw, 2.5rem);
 }

@@ -1,16 +1,21 @@
+@use "../../styles/abstracts/mixins";
 @use "../../styles/abstracts/variables";
 
 .navbar {
-  color: variables.$color-font;
-  font-family: variables.$font-primary;
+  position: relative;
+  z-index: 10;
 
+  padding: 1rem 5%;
+  color: variables.$color-font;
+
+  font-family: variables.$font-primary;
   text-align: center;
-  font-size: 1.5rem;
+
+  @include mixins.fluid-font;
 }
 
 .navbarContent {
   width: 100%;
-  text-align: center;
 }
 
 .navbarHeader {
@@ -21,40 +26,86 @@
 }
 
 .navbarLogoLink {
-  display: block;
   width: 6.5rem;
 }
 
 .navbarLogo {
-  display: block;
   width: 100%;
 }
 
-.navbar-toggler {
+.navbarToggle {
+  position: relative;
+  width: 3rem;
 
-  &:focus {
-    box-shadow: none;
-  }
-
+  height: 3rem;
 }
 
-.navbar-toggler-icon {
-  filter: invert(1);
+.navbarToggleIcon,
+.navbarToggleIcon::before,
+.navbarToggleIcon::after {
+  position: absolute;
+  left: 50%;
+
+  width: 1.8rem;
+  height: 0.14rem;
+
+  background-color: variables.$color-font;
+  transform: translateX(-50%);
+
+  transition: transform variables.$transition-fast, opacity variables.$transition-fast;
+}
+
+.navbarToggleIcon {
+  top: 50%;
+}
+
+.navbarToggleIcon::before,
+.navbarToggleIcon::after {
+  content: "";
+}
+
+.navbarToggleIcon::before {
+  top: -0.5rem;
+}
+
+.navbarToggleIcon::after {
+  top: 0.5rem;
+}
+
+.navbarToggle--open .navbarToggleIcon {
+  background-color: transparent;
+}
+
+.navbarToggle--open .navbarToggleIcon::before {
+  top: 0;
+  opacity: 1;
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.navbarToggle--open .navbarToggleIcon::after {
+  top: 0;
+  opacity: 1;
+
+  transform: translateX(-50%) rotate(-45deg);
 }
 
 .navbarMenu {
-  display: grid;
+  display: none;
   justify-items: center;
 
   gap: 0.75rem;
   padding: 2rem 0;
 }
 
-.navbarLink {
-  &:hover {
-    color: variables.$color-font-gold;
-  }
+.navbarMenu--open {
+  display: grid;
+}
 
+.navbarLink {
+  transition: color variables.$transition-fast;
+
+  &:hover,
   &:focus-visible {
     color: variables.$color-font-gold;
   }
@@ -62,17 +113,23 @@
 
 .navbarAdminLink {
   color: variables.$color-font-gold;
+
+  &:hover,
+  &:focus-visible {
+    color: variables.$color-font;
+  }
 }
 
-.navbarAdminLink:hover {
-  color: variables.$color-font;
-}
-
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
+  .navbarHeader {
+    display: none;
+  }
 
   .navbarMenu {
     display: flex;
     justify-content: space-around;
-  }
 
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
 }

@@ -1,8 +1,5 @@
-import type {
-  Category,
-} from "../types/meal"
-
-export const categories: Category[] = [
+// Central source of truth for every category accepted by the UI and Firestore mapping layer.
+export const categories = [
   "Cafetería",
   "Cosas Dulces",
   "Tortas",
@@ -25,5 +22,12 @@ export const categories: Category[] = [
   "Vinos Rosados",
   "Vinos Blancos",
   "Sidras y Champagne",
-  "Drinks",
-]
+  "Drinks"
+] as const
+
+export type Category = (typeof categories)[number]
+
+// Validates unknown Firestore values against the supported category list.
+export const isCategory = (value: unknown): value is Category => {
+  return typeof value === "string" && (categories as readonly string[]).includes(value)
+}

@@ -1,43 +1,33 @@
-import {
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom"
+import { lazy, Suspense } from "react"
+import { Route, Routes } from "react-router-dom"
 
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"
 
-import Home from "./pages/Home/Home"
-import Menu from "./pages/Menu/Menu"
-import Reservations from "./pages/Reservations/Reservations"
-import About from "./pages/About/About"
-import Login from "./pages/Login/Login"
-import Admin from "./pages/Admin/Admin"
-import NotFound from "./pages/NotFound/NotFound"
+const Home = lazy(() => import("./pages/Home/Home"))
+const Menu = lazy(() => import("./pages/Menu/Menu"))
+const Reservations = lazy(() => import("./pages/Reservations/Reservations"))
+const About = lazy(() => import("./pages/About/About"))
+const Login = lazy(() => import("./pages/Login/Login"))
+const Admin = lazy(() => import("./pages/Admin/Admin"))
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"))
 
+// Defines the application routes and lazy-loads each page to reduce the initial bundle.
 const App = () => {
-  const location = useLocation()
-
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop/>
 
-      <Routes location={location} key={location.key}>
-
-        <Route path="/" element={<Home/>}/>
-
-        <Route path="/menu" element={<Menu/>}/>
-
-        <Route path="/reservations" element={<Reservations/>}/>
-
-        <Route path="/about" element={<About/>}/>
-
-        <Route path="/login" element={<Login/>}/>
-
-        <Route path="/admin" element={<Admin/>}/>
-
-        <Route path="*" element={<NotFound/>}/>
-
-      </Routes>
+      <Suspense fallback={<p role="status">Cargando...</p>}>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/menu" element={<Menu/>}/>
+          <Route path="/reservations" element={<Reservations/>}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/admin" element={<Admin/>}/>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
+      </Suspense>
     </>
   )
 }

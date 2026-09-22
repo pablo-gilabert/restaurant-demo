@@ -1,0 +1,61 @@
+@use "./variables";
+
+@mixin fluid-font($min: variables.$font-size-base, $max: variables.$font-size-max) {
+  font-size: clamp($min, 2vw, $max);
+}
+
+@mixin content-container($max-width: variables.$content-width) {
+  width: min(90%, $max-width);
+  margin-inline: auto;
+}
+
+@mixin gold-action {
+  display: inline-flex;
+  align-items: center;
+
+  justify-content: center;
+  padding: 0.75rem 1rem;
+
+  border-radius: variables.$radius-medium;
+  background-color: variables.$color-font-gold;
+
+  color: variables.$color-primary;
+  font-family: variables.$font-secondary;
+
+  transition: background-color variables.$transition-fast, color variables.$transition-fast, box-shadow variables.$transition-fast;
+
+  &:hover {
+    background-color: variables.$color-secondary;
+    color: variables.$color-font;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+@mixin field-control {
+  width: 100%;
+  padding: 0.75rem;
+
+  border: 1px solid variables.$color-secondary;
+  border-radius: variables.$radius-small;
+
+  background-color: variables.$color-primary;
+  color: variables.$color-font;
+
+  transition: border-color variables.$transition-fast, box-shadow variables.$transition-fast;
+
+  &::placeholder {
+    color: variables.$color-font;
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: variables.$color-font-gold;
+    outline: none;
+
+    box-shadow: 0 0 0.5rem rgba(243, 211, 130, 0.3);
+  }
+}

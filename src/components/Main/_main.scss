@@ -1,32 +1,34 @@
+@use "../../styles/abstracts/mixins";
 @use "../../styles/abstracts/variables";
 
 .main {
-  color: variables.$color-font-gold;
-  font-family: variables.$font-secondary;
+  @include mixins.content-container;
 
+  color: variables.$color-font-gold;
   text-align: center;
-  font-size: 1.5rem;
+}
+
+.mainSection {
+  margin-top: clamp(4rem, 8vw, 7rem);
 }
 
 .mainTitle {
-  margin-top: 5rem;
+  margin-bottom: 2rem;
+
+  @include mixins.fluid-font;
 }
 
-.section {
+.mainGallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 
   gap: clamp(1rem, 2vw, 2rem);
-  width: 80%;
-
-  margin: 0 auto;
-  text-align: center;
 }
 
 .mainImage {
   width: 100%;
-  height: 90%;
+  aspect-ratio: 4 / 3;
 
+  border-radius: variables.$radius-medium;
   object-fit: cover;
-  border-radius: 12px;
 }

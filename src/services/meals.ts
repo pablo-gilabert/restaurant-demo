@@ -1,47 +1,19 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
 
-import {
-  db,
-} from "../firebase/config"
-
-import {
-  categories,
-} from "../data/categories"
-
-import type {
-  Category,
-  Meal,
-} from "../types/meal"
+import { isCategory } from "../data/categories"
+import { db } from "../firebase/db"
+import type { Meal } from "../types/meal"
 
 const mealsCollection = collection(db, "comidas")
 
-const isCategory = (value: unknown): value is Category => {
-
-  return (
-    typeof value === "string" &&
-    categories.includes(value as Category)
-  )
-
-}
-
-const normalizeMeal = (
-  id: string,
-  data: Record<string, unknown>,
-): Meal | null => {
-
+// Converts Firestore documents into validated application meals and rejects malformed records.
+const normalizeMeal = (id: string, data: Record<string, unknown>): Meal | null => {
   if (
     typeof data.name !== "string" ||
     typeof data.description !== "string" ||
     typeof data.available !== "boolean" ||
     typeof data.price !== "number" ||
+    !Number.isFinite(data.price) ||
     !isCategory(data.category)
   ) {
     return null
@@ -53,76 +25,41 @@ const normalizeMeal = (
     description: data.description,
     category: data.category,
     available: data.available,
-    price: data.price,
+    price: data.price
   }
-
 }
 
-export const getMeals = async (
-  onlyAvailable = false,
-): Promise<Meal[]> => {
-
+// Fetches either the complete admin collection or only meals visible on the public menu.
+export const getMeals = async (onlyAvailable = false): Promise<Meal[]> => {
   const mealsQuery = onlyAvailable
-    ? query(
-        mealsCollection,
-        where("available", "==", true)
-      )
+    ? query(mealsCollection, where("available", "==", true))
     : mealsCollection
 
   const mealsSnapshot = await getDocs(mealsQuery)
 
   return mealsSnapshot.docs
-    .map((mealDocument) =>
-      normalizeMeal(
-        mealDocument.id,
-        mealDocument.data(),
-      )
-    )
+    .map((mealDocument) => normalizeMeal(mealDocument.id, mealDocument.data()))
     .filter((meal): meal is Meal => meal !== null)
-
 }
 
-export const createMeal = async (
-  meal: Omit<Meal, "id">,
-): Promise<Meal> => {
+// Creates a new meal and returns the generated Firestore id with the submitted data.
+export const createMeal = async (meal: Omit<Meal, "id">): Promise<Meal> => {
+  const mealDocument = await addDoc(mealsCollection, meal)
 
-  const mealDocument = await addDoc(
-    mealsCollection,
-    meal
-  )
-
-  return {
-    id: mealDocument.id,
-    ...meal,
-  }
-
+  return { id: mealDocument.id, ...meal }
 }
 
-export const updateMeal = async (
-  meal: Meal,
-): Promise<void> => {
-
-  await updateDoc(
-    doc(db, "comidas", meal.id),
-    {
-      name: meal.name,
-      description: meal.description,
-      price: meal.price,
-      available: meal.available,
-    }
-  )
-
+// Updates editable fields while intentionally preserving the category enforced by security rules.
+export const updateMeal = async (meal: Meal): Promise<void> => {
+  await updateDoc(doc(db, "comidas", meal.id), {
+    name: meal.name,
+    description: meal.description,
+    price: meal.price,
+    available: meal.available
+  })
 }
 
-export const toggleMealAvailability = async (
-  meal: Meal,
-): Promise<void> => {
-
-  await updateDoc(
-    doc(db, "comidas", meal.id),
-    {
-      available: !meal.available,
-    }
-  )
-
+// Toggles whether a meal is exposed by the public availability query.
+export const toggleMealAvailability = async (meal: Meal): Promise<void> => {
+  await updateDoc(doc(db, "comidas", meal.id), { available: !meal.available })
 }
