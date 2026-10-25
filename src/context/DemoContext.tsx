@@ -1,27 +1,92 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { createSeed } from "../data/DemoSeed";
+import { importedMeals } from "../data/ImportedMeals";
 import type { Booking, BookingInput, Database, Hours, Meal } from "../data/DemoTypes";
 import { bookingProblem, makeBooking } from "../lib/Reservations";
 
 const DB_KEY = "maison-aster-portfolio-database-v1";
 const AUTH_KEY = "maison-aster-portfolio-admin-session-v1";
+// One-time additive import; unchanged across refreshes to honor user deletions.
+const CATALOG_IMPORT_KEY = "maison-aster-firestore-catalog-v1-imported";
+// One-time price upgrade for pre-existing browser catalogs that received $0 from Firestore.
+const SAMPLE_PRICE_IMPORT_KEY = "maison-aster-sample-prices-v1-imported";
+
+function catalogKey(value: string): string {
+    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function completeLegacyCatalog(database: Database): Database {
+    try {
+        if (localStorage.getItem(CATALOG_IMPORT_KEY) === "yes") return database;
+        const existingIds = new Set(database.meals.map(meal => meal.id));
+        const existingNames = new Set(database.meals.map(meal => catalogKey(meal.name.es)));
+        const additional = importedMeals.filter(meal => !existingIds.has(meal.id) && !existingNames.has(catalogKey(meal.name.es)));
+        const completed = additional.length ? { ...database, meals: [...database.meals, ...additional] } : database;
+        // Persist data before marking the import complete; existing reservations remain untouched.
+        localStorage.setItem(DB_KEY, JSON.stringify(completed));
+        localStorage.setItem(CATALOG_IMPORT_KEY, "yes");
+        return completed;
+    } catch {
+        // If storage is disabled, React state still receives the expanded catalog.
+        const existingIds = new Set(database.meals.map(meal => meal.id));
+        const existingNames = new Set(database.meals.map(meal => catalogKey(meal.name.es)));
+        return {
+            ...database,
+            meals: [...database.meals, ...importedMeals.filter(meal => !existingIds.has(meal.id) && !existingNames.has(catalogKey(meal.name.es)))],
+        };
+    }
+}
+
+// Apply sample prices to legacy zero-valued imported items, preserving edited nonzero prices.
+// This runs only once so explicitly setting a product back to ARS 0 stays hidden later.
+function upgradeSamplePrices(database: Database): Database {
+    try {
+        if (localStorage.getItem(SAMPLE_PRICE_IMPORT_KEY) === "yes") return database;
+    } catch {
+        // Storage may be blocked; still upgrade the in-memory snapshot.
+    }
+
+    const pricesById = new Map(importedMeals.map(meal => [meal.id, meal.price]));
+    const upgradedMeals = database.meals.map(meal => {
+        const samplePrice = pricesById.get(meal.id);
+        return meal.price === 0 && samplePrice !== undefined && samplePrice > 0
+            ? { ...meal, price: samplePrice }
+            : meal;
+    });
+    const upgraded = { ...database, meals: upgradedMeals };
+
+    try {
+        localStorage.setItem(DB_KEY, JSON.stringify(upgraded));
+        localStorage.setItem(SAMPLE_PRICE_IMPORT_KEY, "yes");
+    } catch {
+        // Browser-only application remains usable without persistence.
+    }
+    return upgraded;
+}
+
 export const DEMO_ADMIN = { email: "admin@demo.maisonaster", password: "Demo2026!" } as const;
 
 function load(): Database {
     try {
         const saved = localStorage.getItem(DB_KEY);
-        if (!saved) return createSeed();
+        if (!saved) {
+            const initial = createSeed();
+            try { localStorage.setItem(CATALOG_IMPORT_KEY, "yes"); localStorage.setItem(SAMPLE_PRICE_IMPORT_KEY, "yes"); } catch { /* Storage optional. */ }
+            return initial;
+        }
         const parsed: unknown = JSON.parse(saved);
         if (parsed && typeof parsed === "object") {
             const db = parsed as Partial<Database>;
             if (db.version === 1 && Array.isArray(db.meals) && Array.isArray(db.bookings) && db.hours && typeof db.hours === "object") {
-                return db as Database;
+                return upgradeSamplePrices(completeLegacyCatalog(db as Database));
             }
         }
     } catch {
         // Private browsing or damaged storage: reset the sample dataset.
     }
-    return createSeed();
+    const initial = createSeed();
+    try { localStorage.setItem(CATALOG_IMPORT_KEY, "yes"); localStorage.setItem(SAMPLE_PRICE_IMPORT_KEY, "yes"); } catch { /* Storage optional. */ }
+    return initial;
 }
 
 type ContextValue = {

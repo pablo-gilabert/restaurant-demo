@@ -30,3 +30,92 @@ body{overflow-x:hidden}a,button{transition:color .2s ease,background-color .2s e
 @media(max-width:980px){.luxe-nav{height:74px;gap:.6rem}.luxe-nav-burger{display:flex}.luxe-nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--luxe-bg);color:var(--luxe-text);padding:1.5rem clamp(1rem,5vw,4rem);flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--luxe-line);box-shadow:0 20px 25px #0004}.luxe-nav-links.is-open{display:flex}.luxe-nav-link{padding:1rem .3rem;border-bottom:1px solid var(--luxe-line)}.luxe-nav-book{margin-top:1rem;justify-content:center}.luxe-nav-overlay .luxe-brand,.luxe-nav-overlay .luxe-nav-tools{color:#f5eee0}.luxe-intro{grid-template-columns:1fr}.luxe-intro-mark{font-size:10rem}.luxe-image-feature-side{padding:3.5rem}.luxe-about-story{gap:3rem}.luxe-signature-grid{gap:1.5rem}}
 @media(max-width:760px){.luxe-hero{min-height:780px}.luxe-hero-image{background-position:65% center}.luxe-hero-inner{padding:3rem 0}.luxe-hero-wordmark{font-size:clamp(4.4rem,15vw,8rem)}.luxe-hero-inner h1{font-size:clamp(3.4rem,9vw,5.3rem);margin-top:2.2rem}.luxe-hero-foot{font-size:.51rem}.luxe-intro{padding-block:5rem}.luxe-image-feature{grid-template-columns:1fr}.luxe-image-feature-main{min-height:410px}.luxe-image-feature-side{padding:3.5rem 6%}.luxe-section-top{align-items:flex-start;flex-direction:column}.luxe-signature-grid{grid-template-columns:1fr 1fr}.luxe-signature-card:nth-child(3){grid-column:1/-1}.luxe-signature-photo{height:340px}.luxe-manifesto{grid-template-columns:1fr}.luxe-manifesto-photo{min-height:380px}.luxe-manifesto-content{padding:4.5rem 6%}.luxe-menu .meals{grid-template-columns:1fr;gap:.5rem}.luxe-reservations .mathilde-booking{grid-template-columns:1fr}.mathilde-booking-intro{position:static}.luxe-about-story,.luxe-location{grid-template-columns:1fr}.luxe-footer-bottom{grid-template-columns:1fr 1fr}.luxe-footer-brand{grid-column:1/-1}.luxe-footer-legal{flex-direction:column}}
 @media(max-width:480px){.luxe-nav{padding:0 1rem}.luxe-nav-tools{gap:.1rem}.luxe-nav-tools .controls .language{font-size:.56rem;padding:0 .45rem;min-height:36px}.luxe-nav-tools .controls .option{width:34px;min-height:34px}.luxe-brand>span:first-child{font-size:2.4rem}.luxe-brand-type strong{font-size:.88rem}.luxe-brand-type small{font-size:.42rem}.luxe-hero{min-height:740px}.luxe-hero-wordmark{font-size:clamp(3.9rem,15vw,5.6rem)}.luxe-hero-inner h1{font-size:3.45rem}.luxe-hero-eyebrow{font-size:.51rem;letter-spacing:.14em}.luxe-hero-foot>span:first-child{display:none}.luxe-button{width:100%}.luxe-hero-actions{width:100%}.luxe-intro h2,.luxe-section-top h2{font-size:3.4rem}.luxe-signature-grid{grid-template-columns:1fr}.luxe-signature-card:nth-child(3){grid-column:auto}.luxe-signature-photo{height:370px}.mathilde-form-grid{grid-template-columns:1fr}.luxe-footer-bottom{grid-template-columns:1fr}.luxe-footer-brand{grid-column:auto}.luxe-inner-hero{min-height:280px;padding:4rem 1rem}.luxe-inner-hero h1{font-size:3.7rem}.luxe-about-story h2{font-size:3.5rem}}
+
+
+/* --------------------------------------------------------------------------
+   LIGHT MODE REFINEMENTS
+   Warm ivory navigation, ink contrast and muted golden accents.
+   Remove white image veils and the white inset shadow from the theme switch.
+   The default dark mode styles above remain unchanged.
+   -------------------------------------------------------------------------- */
+:root[data-theme="light"] .luxe-nav {
+    background: #f1e9db;
+    color: #302a21;
+    border-bottom: 1px solid #c6b596;
+    box-shadow: none;
+}
+
+:root[data-theme="light"] .luxe-nav-overlay {
+    background: rgba(241, 233, 219, .97);
+    color: #302a21;
+    border-bottom-color: #b8a17d;
+    box-shadow: none;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-brand,
+:root[data-theme="light"] .luxe-nav .luxe-nav-tools,
+:root[data-theme="light"] .luxe-nav .luxe-nav-burger,
+:root[data-theme="light"] .luxe-nav .luxe-nav-link {
+    color: #302a21;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-brand-type small {
+    color: #865d2c;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-nav-link:hover,
+:root[data-theme="light"] .luxe-nav .luxe-nav-link.is-active {
+    color: #77511f;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .65em;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-nav-book {
+    background: #3b3226;
+    color: #fffaf0;
+    border-color: #3b3226;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-nav-book:hover {
+    background: #775628;
+    color: #fffaf0;
+    border-color: #775628;
+}
+
+:root[data-theme="light"] .luxe-nav .luxe-nav-links.is-open,
+:root[data-theme="light"] .luxe-nav .luxe-nav-links:not(.is-open) {
+    box-shadow: none;
+}
+
+/* Retain readable photo captions without introducing white/light shadows. */
+:root[data-theme="light"] .luxe-book-head,
+:root[data-theme="light"] .luxe-footer-top {
+    color: #f7f0e5;
+}
+
+:root[data-theme="light"] .luxe-book-head p {
+    color: #e8dac5;
+}
+
+:root[data-theme="light"] .luxe-book-head .luxe-eyebrow,
+:root[data-theme="light"] .luxe-footer-top .luxe-eyebrow {
+    color: #f0d1a2;
+}
+
+/* Both icons stay visible. The active option is filled, with no white glow. */
+:root[data-theme="light"] [role="group"][aria-label="Tema"] button[aria-pressed="true"],
+:root[data-theme="light"] [role="group"][aria-label="Theme"] button[aria-pressed="true"] {
+    background: #886536;
+    color: #fffaf0;
+    box-shadow: none;
+}
+
+@media(max-width:980px) {
+    :root[data-theme="light"] .luxe-nav .luxe-nav-links {
+        background: #f1e9db;
+        color: #302a21;
+        border-bottom-color: #c6b596;
+        box-shadow: none;
+    }
+}

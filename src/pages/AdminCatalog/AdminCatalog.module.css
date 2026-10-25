@@ -1,0 +1,50 @@
+.filtersToolbar {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.filtersToolbar > label {
+    flex: 0 1 188px;
+    min-width: 170px;
+    min-height: 76px;
+}
+
+.filtersToolbar > label:first-child {
+    flex-basis: 180px;
+}
+
+.filtersToolbar input,
+.filtersToolbar select {
+    width: 100%;
+    min-height: 51px;
+}
+
+.filtersToolbar select {
+    cursor: pointer;
+}
+
+.filtersToolbar :is(input, select):focus-visible {
+    outline: 2px solid var(--demo-gold);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .filtersToolbar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filtersToolbar > label,
+    .filtersToolbar > label:first-child {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 410px) {
+    .filtersToolbar {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

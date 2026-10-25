@@ -16,6 +16,8 @@
     --luxe-photo-overlay-strong: rgba(15, 18, 15, .78);
     --luxe-footer-bg: #111512;
     --luxe-footer-text: #e8e1d4;
+    --luxe-photo-text: #ece5d7;
+    --luxe-photo-gold: #d9bf8c;
 
     --demo-bg: var(--luxe-bg);
     --demo-card: var(--luxe-surface);
@@ -42,10 +44,13 @@
     --luxe-hero-surface: #e8ddcc;
     --luxe-feature-contrast: #efe6d8;
     --luxe-feature-contrast-text: #2a2924;
-    --luxe-photo-overlay-soft: rgba(245, 238, 227, .22);
-    --luxe-photo-overlay-strong: rgba(245, 238, 227, .62);
+    /* Warm charcoal filters remove the pale/white haze from the photographs. */
+    --luxe-photo-overlay-soft: rgba(28, 26, 21, .20);
+    --luxe-photo-overlay-strong: rgba(23, 23, 19, .60);
     --luxe-footer-bg: #efe7db;
     --luxe-footer-text: #2a2823;
+    --luxe-photo-text: #f7f0e5;
+    --luxe-photo-gold: #edcea0;
 
     --demo-bg: var(--luxe-bg);
     --demo-card: var(--luxe-surface);
