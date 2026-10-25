@@ -1,0 +1,5 @@
+.controls { display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.4rem; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.45rem 0.65rem; min-height: 38px; border: 1px solid var(--demo-border, #9b895d); border-radius: 0.5rem; background: var(--demo-card, #13221e); color: var(--demo-text, #e1dcc9); font-family: Arial, sans-serif; font-size: 0.78rem; white-space: nowrap; }
+.button:hover { border-color: var(--demo-gold, #f3d382); }
+.button img { width: 21px; height: 14px; object-fit: cover; border-radius: 2px; }
+@media(max-width:410px) { .button { padding: 0.4rem; } .button span { display: none; } }

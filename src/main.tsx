@@ -1,18 +1,11 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import { DisplayProvider } from "./context/DisplayContext";
+import { DemoProvider } from "./context/DemoContext";
+import "./styles/main.scss";
+import "./styles/DemoTheme.css";
+import "./styles/Dialogs.css";
 
-import App from "./App"
-import AuthProvider from "./context/AuthProvider"
-import "./styles/main.scss"
-
-// Boots the React application with routing and shared authentication state.
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App/>
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>
-)
+createRoot(document.getElementById("root")!).render(<StrictMode><BrowserRouter><DisplayProvider><DemoProvider><App /></DemoProvider></DisplayProvider></BrowserRouter></StrictMode>);

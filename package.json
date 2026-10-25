@@ -1,19 +1,20 @@
 {
   "name": "restaurant-demo",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^12.19.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "sweetalert2": "^11.26.25"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
@@ -23,6 +24,6 @@
     "oxlint": "^1.81.0",
     "sass": "^1.104.1",
     "typescript": "~6.0.2",
-    "vite": "^8.3.0"
+    "vite": "^8.3.5"
   }
 }

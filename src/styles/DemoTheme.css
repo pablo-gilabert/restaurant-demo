@@ -1,0 +1,50 @@
+/* Semantic colors for the existing Sass design and the new demo UI. */
+:root[data-theme="dark"],:root:not([data-theme]) {
+    color-scheme:dark; --demo-bg:#091413;--demo-card:#132721;--demo-text:#e1dcc9;--demo-muted:#bdbbab;--demo-gold:#f3d382;--demo-accent:#286b5b;--demo-input:#081b16;--demo-border:#436658;--demo-hover:#274b40;--demo-danger:#ffb1a5;
+}
+:root[data-theme="light"] {
+    color-scheme:light; --demo-bg:#f7f2e8;--demo-card:#fffdf8;--demo-text:#1a302a;--demo-muted:#54685f;--demo-gold:#805522;--demo-accent:#28685a;--demo-input:#ffffff;--demo-border:#a9b2a3;--demo-hover:#e6eee6;--demo-danger:#a8352a;
+}
+body { background:var(--demo-bg);color:var(--demo-text);transition:background .2s,color .2s; }
+/* The original Sass styles contain fixed palette colors; adapt those surfaces on the light theme. */
+:root[data-theme="light"] .navbar:not(.mathilde-nav),
+:root[data-theme="light"] .mathilde-nav { background:var(--demo-bg);color:var(--demo-text); }
+:root[data-theme="light"] .menuCategory { background:var(--demo-card);color:var(--demo-text);border:1px solid var(--demo-border); }
+:root[data-theme="light"] .menuCategory:hover,:root[data-theme="light"] .menuCategory--active { background:var(--demo-accent);color:#fff; }
+:root[data-theme="light"] .menuTitle,:root[data-theme="light"] .menuPrompt,:root[data-theme="light"] .aboutTitle,:root[data-theme="light"] .aboutDescription,:root[data-theme="light"] .mainTitle,:root[data-theme="light"] .notFoundTitle,:root[data-theme="light"] .notFoundCode { color:var(--demo-gold); }
+:root[data-theme="light"] .mealDivider { background:var(--demo-border); }
+:root[data-theme="light"] .navbarToggleIcon,:root[data-theme="light"] .navbarToggleIcon:before,:root[data-theme="light"] .navbarToggleIcon:after { background:var(--demo-text); }
+.mathilde-nav { background:var(--demo-bg);color:var(--demo-text); }
+.headerWrapper .mathilde-nav { background:rgba(4,16,13,.86);color:#f7eedb; }
+.headerWrapper .mathilde-nav .navbarToggleIcon,.headerWrapper .mathilde-nav .navbarToggleIcon:before,.headerWrapper .mathilde-nav .navbarToggleIcon:after { background:#f7eedb; }
+.headerWrapper .mathilde-nav .navbarToggle--open .navbarToggleIcon { background:transparent; }
+.mathilde-nav-actions { display:flex;align-items:center;gap:.65rem; }
+.mathilde-nav .navbarMenu { align-items:center; }
+.mathilde-nav-desktop-controls { display:none; }
+.mathilde-nav .navbarLogoLink { width:5.2rem; }
+.mathilde-nav .navbarLink { font-size:clamp(.85rem,1.25vw,1.05rem);white-space:nowrap; }
+.mathilde-nav .navbarMenu--open { background:var(--demo-bg);border-radius:10px;padding:1rem; }
+.headerWrapper .mathilde-nav .navbarMenu--open { background:rgba(7,25,20,.98); }
+@media(min-width:64rem) {
+    .mathilde-nav .navbarHeader { display:flex; }
+    .mathilde-nav .navbarToggle { display:none; }
+    .mathilde-nav .navbarMenu { display:flex;justify-content:center;gap:clamp(.6rem,1.5vw,1.5rem);padding:.4rem; }
+    .mathilde-nav .navbarMenu .mathilde-nav-desktop-controls { display:none; }
+    .mathilde-nav .navbarContent { display:flex;align-items:center;justify-content:space-between;gap:1rem; }
+    .mathilde-nav .navbarHeader { flex-shrink:0; }
+    .mathilde-nav .navbarLink { font-size:clamp(.72rem,1vw,1rem); }
+}
+@media(max-width:1023px) { .mathilde-nav .navbarMenu { justify-items:center; } }
+.mathilde-loading {text-align:center;padding:3rem;}
+.mathilde-disclaimer { max-width:65ch;font-size:.75rem;line-height:1.7;color:var(--demo-muted);text-align:center;margin:2rem auto; }
+.mathilde-booking { width:min(92%,1020px);margin:3rem auto;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1.3rem,5vw,4rem);align-items:start;font-size:1rem; }
+.mathilde-booking-intro h1 { color:var(--demo-gold);font-size:clamp(2.1rem,4vw,3.4rem); }
+.mathilde-booking-intro p { margin:1rem 0 2rem;color:var(--demo-muted);font-size:.98rem;line-height:1.7; }
+.mathilde-link-button,.mathilde-primary { display:inline-block;padding:.9rem 1.2rem;border-radius:10px;background:var(--demo-accent);color:#fff;font-size:.95rem; }
+.mathilde-booking-form { display:grid;gap:1.2rem;padding:clamp(1rem,3vw,2rem);border:1px solid var(--demo-border);border-radius:12px;background:var(--demo-card); }
+.mathilde-form-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem; }
+.mathilde-booking-form label { display:grid;gap:.45rem;font-size:.8rem;font-weight:700; }
+.mathilde-booking-form input,.mathilde-booking-form select,.mathilde-booking-form textarea { width:100%;min-height:46px;padding:.65rem;border:1px solid var(--demo-border);border-radius:7px;color:var(--demo-text);background:var(--demo-input);font-size:.9rem; }
+.mathilde-booking-form textarea { min-height:90px; }
+.mathilde-booking-form .mathilde-disclaimer { margin:0; }.mathilde-error {color:var(--demo-danger);font-size:.8rem;}
+@media(max-width:800px){.mathilde-booking{grid-template-columns:1fr;}}@media(max-width:470px){.mathilde-form-grid{grid-template-columns:1fr;}}

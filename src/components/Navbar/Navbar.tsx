@@ -1,61 +1,27 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Mathilde from "../../assets/img/icons/mathilde.webp";
+import { useDisplay } from "../../context/DisplayContext";
+import { useDemo } from "../../context/DemoContext";
+import DisplayControls from "../DisplayControls/DisplayControls";
+import "./_navbar.scss";
 
-import Mathilde from "../../assets/img/icons/mathilde.webp"
-import { useAuth } from "../../context/useAuth"
-
-import "./_navbar.scss"
-
-// Renders the responsive navigation and exposes the admin link only to authorized users.
-const Navbar = () => {
-  const { user, role } = useAuth()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  // Closes the mobile menu after navigation.
-  const handleCloseMenu = () => {
-    setIsMenuOpen(false)
-  }
-
-  return (
-    <nav className="navbar" aria-label="Navegación principal">
-      <div className="navbarContent">
-        <div className="navbarHeader">
-          <Link
-            to="/"
-            className="navbarLogoLink"
-            aria-label="Ir al inicio de Mathilde Resto"
-            onClick={handleCloseMenu}>
-            <img className="navbarLogo" src={Mathilde} alt="Mathilde Resto"/>
-          </Link>
-
-          <button
-            className={`navbarToggle ${isMenuOpen ? "navbarToggle--open" : ""}`}
-            type="button"
-            aria-controls="navbarMenu"
-            aria-expanded={isMenuOpen}
-            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-            onClick={() => setIsMenuOpen((current) => !current)}>
-            <span className="navbarToggleIcon" aria-hidden="true"/>
-          </button>
-        </div>
-
-        <div className={`navbarMenu ${isMenuOpen ? "navbarMenu--open" : ""}`} id="navbarMenu">
-          <Link className="navbarLink" to="/" onClick={handleCloseMenu}>Inicio</Link>
-          <Link className="navbarLink" to="/menu" onClick={handleCloseMenu}>Carta</Link>
-
-          {user && role === "admin" && (
-            <Link className="navbarLink navbarAdminLink" to="/admin" onClick={handleCloseMenu}>
-              Panel de Control
-            </Link>
-          )}
-
-          <Link className="navbarLink" to="/reservations" onClick={handleCloseMenu}>Reservaciones</Link>
-          <Link className="navbarLink" to="/about" onClick={handleCloseMenu}>Nosotros</Link>
-          <Link className="navbarLink" to="/login" onClick={handleCloseMenu}>Sesión</Link>
-        </div>
-      </div>
-    </nav>
-  )
+export default function Navbar() {
+    const { t } = useDisplay();
+    const { authenticated } = useDemo();
+    const { pathname } = useLocation();
+    const [menu, setMenu] = useState(false);
+    const nav = [
+        ["/", t("navHome")], ["/menu", t("navMenu")], ["/reservations", t("navBookings")], ["/about", t("navAbout")],
+        [authenticated ? "/admin/turnos" : "/login", authenticated ? t("navAdmin") : t("navLogin")],
+    ];
+    return <nav className="navbar mathilde-nav" aria-label="Main navigation" key={pathname}>
+        <div className="navbarContent"><div className="navbarHeader">
+            <Link to="/" className="navbarLogoLink" onClick={() => setMenu(false)} aria-label="Mathilde Resto"><img className="navbarLogo" src={Mathilde} alt="Mathilde Resto" /></Link>
+            <div className="mathilde-nav-actions"><DisplayControls /><button className={`navbarToggle ${menu ? "navbarToggle--open" : ""}`} type="button" aria-expanded={menu} aria-controls="navbarMenu" aria-label={menu ? t("menuClose") : t("menuOpen")} onClick={() => setMenu(x => !x)}><span className="navbarToggleIcon" /></button></div>
+        </div><div className={`navbarMenu ${menu ? "navbarMenu--open" : ""}`} id="navbarMenu">
+            {nav.map(([path, label]) => <Link className="navbarLink" key={path} to={path} onClick={() => setMenu(false)}>{label}</Link>)}
+            <div className="mathilde-nav-desktop-controls"><DisplayControls /></div>
+        </div></div>
+    </nav>;
 }
-
-export default Navbar
