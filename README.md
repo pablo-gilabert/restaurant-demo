@@ -1,57 +1,44 @@
-# Mathilde Resto — Local-First Restaurant Management Demo
+# Maison Aster — Editorial Fine-Dining Experience (Demo)
 
-A bilingual restaurant portfolio application built with **React 19, TypeScript, Vite, Sass and SweetAlert2**. Its sample menu, administrator account, opening hours and reservations are supplied by code and stored exclusively in the browser. No backend, cloud database, or external authentication service is required.
+A refined, bilingual restaurant website and **browser-only restaurant management demo** built with React, TypeScript, Vite, and SweetAlert2. The interface is designed to evoke the restraint, sophistication, and hospitality associated with fine dining; **Maison Aster is not claimed to hold Michelin stars**.
 
-**Portfolio project:** All customer names, prices, menu items and reservations are fictional demo data. Creating a reservation does not contact Mathilde Resto. Do not enter real customer information.
+## Visual direction
+- Editorial large-scale typography (Cormorant Garamond and DM Sans), generous white space, cinematic hero composition, deep charcoal and ivory themes, champagne details.
+- Spanish and English across the public pages, reservations, login, and administration.
+- Dark mode by default, with light mode and persistent language preferences.
+- Responsive layouts, keyboard focus states, semantic heading hierarchy and responsive navigation.
 
 ## Features
+- Editorial landing page with dynamic signature menu picks (based on the shared demo catalog).
+- Restaurant menu with category navigation, localized item names and descriptions, prices, and availability.
+- Table booking simulator with day-specific hours, selectable available slots, 90-minute duration and 30-minute slot intervals.
+- Browser-local administrator panel for managing bookings, deposits, cancellations, customer notes, menu items, prices, and daily table capacity.
+- SweetAlert2 modal forms, confirmations and notices.
+- Demo login with **visible credentials** and one-click access.
+- WhatsApp contact link, location map, route-specific metadata, and a custom 404 page.
 
-- Responsive restaurant home page with the original brand photography, galleries and location map.
-- Spanish/English text throughout the public pages and administration; Spanish by default.
-- Light/dark themes; dark by default.
-- Food catalog with editable bilingual names, descriptions, categories, prices and availability.
-- Public booking simulator with available time slots and customer contact fields.
-- Administration login with visible sample credentials and a one-click demo sign-in.
-- Booking dashboard: filter bookings by date and status, and manage guests, notes, deposits and reservation status.
-- Schedule editor for open/closed days, daily opening hours and table capacity.
-- SweetAlert2 modal forms, confirmation dialogs and notices.
-- Existing WhatsApp reservation shortcut retained as a separate external contact option.
-- Responsive navigation, 404 page and route-specific SEO metadata.
-
-## Demo administrator
-
+## Demo credentials
 - **Email:** `admin@demo.mathilde`
 - **Password:** `Demo2026!`
-- **Login routes:** `/login`, `/admin/login`
-- **Administration routes:** `/admin/turnos`, `/admin/carta`, `/admin/horarios`
+- **Login:** `/login` or `/admin/login`
+- **Admin:** `/admin/turnos`, `/admin/carta`, `/admin/horarios`
 
-The administrator account is defined as a constant in `src/context/DemoContext.tsx`. **This is not secure authentication.** Any visitor can inspect the credentials and edit the local demo data. Do not use this system in production with real customer or business data.
+These credentials are intentionally public. **This is not real security or authorization.**
 
-## Browser-only data model
+## Data and persistence
+The initial sample catalog, reservations, and opening hours live in `src/data/DemoSeed.ts`. `src/context/DemoContext.tsx` implements all local CRUD operations. The only persistent data storage is the browser's **`localStorage`**: menu data, booking data, opening hours, demo sign-in, theme, and language. There is no Firebase, Firestore, server database or API used by these workflows.
 
-| File | Responsibility |
-| --- | --- |
-| `src/data/DemoSeed.ts` | Initial sample meals, fictional bookings and opening hours |
-| `src/data/DemoTypes.ts` | Typed menu, reservation and schedule contracts |
-| `src/context/DemoContext.tsx` | Local database, demo sign-in and CRUD actions |
-| `src/lib/Reservations.ts` | Booking duration, capacity and overlap checks |
-| `src/lib/Dialogs.ts` | SweetAlert2 dialogs and HTML escaping helpers |
-| `src/context/DisplayContext.tsx` | Locale and theme preferences |
-| `src/i18n/Translations.ts` | Translations for Spanish and English |
+Changes remain after refreshes in the **same browser profile** but are not shared between browsers, devices, or users. The admin can reset demo data. Public reservations are simulations: they do not contact the restaurant, send emails or collect payment. Do not enter real guest information.
 
-The initial data is hardcoded in `DemoSeed.ts`. The application uses **only `localStorage`** to persist its sample menu, hours, reservations, demo session, language and theme. Values survive a refresh and browser restart in the same browser profile. Data is not shared across devices, browsers or users.
+## Photography and rights
+The redesigned public site uses **local AI-generated food and restaurant imagery included in /public/ai**, generated for the demo. This is a visual concept for a portfolio, and the images do not depict Maison Aster, its actual cuisine or premises. The packaged assets work offline and do not depend on external image CDNs. All brand, contact and image content in this demo is fictional portfolio material.
 
-To restore the original sample data, use **Reset demo** in the administration panel. Resetting does not change the administrator credentials or locale/theme settings. Browser storage can also be cleared manually from Developer Tools. The demo's data and session storage keys are:
+Photo URLs used by the site are in `src/styles/Luxe.css` and `src/pages/AdminLogin/AdminLogin.module.css`.
 
-- `mathilde-portfolio-database-v1`
-- `mathilde-portfolio-admin-session-v1`
-- `mathilde-demo-language`
-- `mathilde-demo-theme`
+## Technology
+React 19 · TypeScript 6 · Vite 8 · React Router 7 · CSS Modules · CSS custom properties · SweetAlert2 · localStorage
 
-A table booking uses one table for 90 minutes, with selectable 30-minute start intervals and configurable table capacity. This is an illustrative scheduling model and does not implement real transactional capacity management.
-
-## Run locally
-
+## Local development
 ```bash
 npm install
 npm run typecheck
@@ -60,12 +47,11 @@ npm run build
 npm run dev
 ```
 
-The previous cloud integration and its unused source files have been removed. Dependencies are managed through `package.json` and `package-lock.json`. If you apply this cleanup as a patch to an older checkout, delete the obsolete files listed in the accompanying chat instructions, then run `npm install` to regenerate the lockfile and prune unused packages.
-
 ## Deployment
+A `vercel.json` SPA rewrite is included so direct navigation to React Router pages works on Vercel. Build command: `npm run build`. Output directory: `dist`. No environment variables or backend credentials are required.
 
-This client-side React Router application builds to `dist/`. The repository's Vercel SPA rewrite (`vercel.json`) serves the app routes from `index.html`. Static demo data is stored in each visitor's browser: **it is not synced across visitors** and must not be relied upon for actual table reservations.
+## Files to preserve / replace
+This archive is a **complete standalone source tree**. Keep your existing `.git/` directory to preserve commit history. If you are merging into a previously cloned folder, remove legacy original-photo and Sass paths listed in `INSTALLATION.md` before copying the archive. Then copy all files from this archive onto the project root. Regenerate `package-lock.json` with `npm install` because the archive intentionally excludes a stale lockfile.
 
-## Stack
-
-React 19 · TypeScript · Vite · React Router · Sass · SweetAlert2 · Browser `localStorage`
+## Portfolio notice
+This is a fictional booking and administration experience. Branding and location references appear as part of a design demo. No Michelin accreditation is asserted. Do not use the mock login for real authentication or store actual personal information in a browser-only demo.

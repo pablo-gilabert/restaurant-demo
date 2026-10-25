@@ -1,10 +1,2 @@
-.wrap { display:grid;grid-template-columns:minmax(205px,250px) minmax(0,1fr);gap:clamp(1.2rem,3vw,3rem);width:min(94%,1400px);margin:2rem auto;align-items:start;font-size:1rem; }
-.sidebar { position:sticky;top:1rem;display:grid;gap:.8rem;padding:1.5rem;border:1px solid var(--demo-border);border-radius:14px;background:var(--demo-card);font-size:.92rem; }
-.sidebar strong { color:var(--demo-gold);margin-bottom:.5rem; }
-.link,.current { display:block;padding:.8rem;border-radius:7px;text-decoration:none; }
-.current { background:var(--demo-accent);color:#fff; }
-.controls { display:grid;gap:.65rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--demo-border); }
-.controls button,.controls>a { padding:.7rem;text-align:left;border:1px solid var(--demo-border);border-radius:8px;font-size:.85rem; }
-.main { min-width:0; }
-.notice { margin:2rem 0;color:var(--demo-muted);font-size:.8rem;line-height:1.6; }
-@media(max-width:850px) { .wrap { grid-template-columns:1fr; } .sidebar { position:static;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));align-items:center; } .sidebar strong { grid-column:1/-1; } .controls { grid-column:1/-1;display:flex;flex-wrap:wrap; } }
+.wrap{display:grid;grid-template-columns:minmax(210px,245px) minmax(0,1fr);gap:clamp(1.5rem,3vw,3.5rem);width:min(93%,1480px);margin:3rem auto;align-items:start;font-size:.95rem}.sidebar{position:sticky;top:1.5rem;display:grid;gap:.5rem;padding:1.6rem;border:1px solid var(--demo-border);background:var(--demo-card)}.sidebar strong{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--demo-gold);font-weight:400;margin-bottom:1rem}.link,.current{display:block;padding:.75rem .85rem;border-left:1px solid transparent;text-decoration:none;font-size:.8rem;letter-spacing:.06em}.current{background:var(--demo-hover);border-color:var(--demo-gold);color:var(--demo-gold)}.controls{display:grid;gap:.6rem;margin-top:1rem;padding-top:1.3rem;border-top:1px solid var(--demo-border)}.controls button,.controls>a{padding:.7rem;text-align:left;border:1px solid var(--demo-border);font-size:.8rem}.controls button:hover,.controls>a:hover{border-color:var(--demo-gold)}.main{min-width:0}.notice{margin:3rem 0;color:var(--demo-muted);font-size:.75rem;line-height:1.7}
+@media(max-width:850px){.wrap{grid-template-columns:1fr;margin:1.5rem auto}.sidebar{position:static;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));align-items:center}.sidebar strong,.controls{grid-column:1/-1}.controls{display:flex;flex-wrap:wrap}}

@@ -50,7 +50,7 @@ export default function AdminDashboard() {
         });
         if (response.isDenied) await editModal(b);
     };
-    return <><SEO title={`${t("dashboard")} | Mathilde Resto`} description={t("dashboardHint")} /><AdminShell>
+    return <><SEO title={`${t("dashboard")} | Maison Aster`} description={t("dashboardHint")} /><AdminShell>
         <div className={styles.heading}><div><span className={styles.kicker}>{t("demoTag")}</span><h1>{t("dashboard")}</h1><p>{t("dashboardHint")}</p></div><button className={styles.primary} onClick={() => editModal()}>{t("addBooking")} +</button></div>
         <div className={styles.toolbar}><label>{t("date")}<input type="date" value={date} onChange={e => setDate(e.target.value)} /></label><label>{t("overview")}<select value={filter} onChange={e => setFilter(e.target.value as typeof filter)}><option value="all">{t("total")}</option><option value="confirmed">{t("booked")}</option><option value="cancelled">{t("cancelled")}</option></select></label></div>
         <div className={styles.stats}><div><strong>{all.filter(b => b.status === "confirmed").length}</strong><span>{t("booked")}</span></div><div><strong>{all.filter(b => b.status === "confirmed" && b.depositPaid).length}</strong><span>{t("withDeposit")}</span></div><div><strong>{all.filter(b => b.status === "confirmed" && !b.depositPaid).length}</strong><span>{t("withoutDeposit")}</span></div><div><strong>{all.filter(b => b.status === "cancelled").length}</strong><span>{t("cancelled")}</span></div></div>

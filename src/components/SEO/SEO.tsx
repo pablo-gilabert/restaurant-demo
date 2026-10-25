@@ -1,27 +1,10 @@
-import { useEffect } from "react"
-
-type SEOProps = {
-  title: string
-  description: string
+import { useEffect } from "react";
+export default function SEO({ title, description }: { title: string; description: string }) {
+    useEffect(() => {
+        document.title = title;
+        let tag = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+        if (!tag) { tag = document.createElement("meta"); tag.name = "description"; document.head.appendChild(tag); }
+        tag.content = description;
+    }, [title, description]);
+    return null;
 }
-
-// Synchronizes the document title and description meta tag with the active page.
-const SEO = ({ title, description }: SEOProps) => {
-  useEffect(() => {
-    document.title = title
-
-    let descriptionMeta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
-
-    if (!descriptionMeta) {
-      descriptionMeta = document.createElement("meta")
-      descriptionMeta.name = "description"
-      document.head.appendChild(descriptionMeta)
-    }
-
-    descriptionMeta.content = description
-  }, [title, description])
-
-  return null
-}
-
-export default SEO

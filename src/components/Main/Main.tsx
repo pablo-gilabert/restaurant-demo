@@ -1,27 +1,16 @@
-import Pavlova from "../../assets/img/cafe/cafe con pavlova.jpg";
-import Variado from "../../assets/img/cafe/cafe fariado.jpg";
-import CafeMedialunas from "../../assets/img/cafe/cafeMedialunas.jpg";
-import Capuchino from "../../assets/img/cafe/capuchino.jpg";
-import Submarino from "../../assets/img/cafe/submarino.jpg";
-import Tostados from "../../assets/img/cafe/tostados.jpg";
-import Cheesecake from "../../assets/img/postres/cheesecake pistacho.jpg";
-import CheesecakeClasico from "../../assets/img/postres/cheesecakeclasico.jpg";
-import Chocotorta from "../../assets/img/postres/chocotorta.jpg";
-import BifeChorizo from "../../assets/img/principales/bifeChorizoProvenzal.jpg";
-import BifeMalbec from "../../assets/img/principales/bifeMalbec.jpg";
-import PolloCarbonara from "../../assets/img/principales/polloCarbonara.jpg";
-import PolloRelleno from "../../assets/img/principales/polloRellenoChampiñon.jpg";
-import Risotto from "../../assets/img/principales/risottoHongos.jpg";
-import Sorrentinos from "../../assets/img/principales/sorrentinosSalimon.jpg";
+import { Link } from "react-router-dom";
 import { useDisplay } from "../../context/DisplayContext";
-import "./_main.scss";
-
+import { useDemo } from "../../context/DemoContext";
+import { money } from "../../data/DemoTypes";
 export default function Main() {
-    const { t } = useDisplay();
-    const sections = [
-        { id: "breakfast", title: t("breakfast"), images: [Capuchino, Pavlova, Submarino, Tostados, Variado, CafeMedialunas] },
-        { id: "desserts", title: t("desserts"), images: [Cheesecake, CheesecakeClasico, Chocotorta] },
-        { id: "main-courses", title: t("mainDishes"), images: [BifeChorizo, BifeMalbec, PolloCarbonara, PolloRelleno, Risotto, Sorrentinos] },
-    ];
-    return <main className="main">{sections.map(section => <section className="mainSection" key={section.id} aria-labelledby={`${section.id}Title`}><h2 className="mainTitle" id={`${section.id}Title`}>{section.title}</h2><div className="mainGallery">{section.images.map((src, i) => <img className="mainImage" key={src} src={src} alt={`${section.title} ${i + 1}`} loading="lazy" decoding="async" />)}</div></section>)}</main>;
+    const { language, t } = useDisplay();
+    const { database } = useDemo();
+    const es = language === "es";
+    const chosen = ["Elaborados", "Pastas", "Grill"].map(category => database.meals.find(m => m.available && m.category === category)).filter((m): m is NonNullable<typeof m> => Boolean(m));
+    return <main id="main-content">
+        <section className="luxe-intro luxe-container"><div className="luxe-intro-mark">M<span>✦</span></div><div><span className="luxe-eyebrow">{es ? "BIENVENIDOS A MAISON ASTER" : "WELCOME TO MAISON ASTER"}</span><h2>{es ? <>Donde la cocina se vuelve <em>memoria.</em></> : <>Where cuisine becomes <em>memory.</em></>}</h2><p>{es ? "Creemos en los detalles que no necesitan explicarse: la luz justa, la conversación que se prolonga, la belleza de los ingredientes y la calidez de una mesa compartida." : "We believe in details that need no explanation: the perfect light, conversations that linger, the beauty of ingredients, and the warmth of gathering around a table."}</p><Link className="luxe-text-link" to="/about">{es ? "NUESTRA FILOSOFÍA" : "OUR PHILOSOPHY"} <span>↗</span></Link></div></section>
+        <section className="luxe-image-feature" aria-label={es ? "Gastronomía y experiencia" : "Food and atmosphere"}><div className="luxe-image-feature-main" /><div className="luxe-image-feature-side"><span className="luxe-eyebrow">01 / {es ? "LA EXPERIENCIA" : "THE EXPERIENCE"}</span><h2>{es ? "El placer está" : "Beauty lives"}<br /><em>{es ? "en los detalles." : "in the details."}</em></h2><p>{es ? "Ingredientes nobles. Técnica sensible. Una celebración de lo simple y lo extraordinario." : "Honest ingredients. Considered technique. A celebration of the simple and the extraordinary."}</p><Link className="luxe-text-link" to="/menu">{es ? "DESCUBRÍ LA CARTA" : "EXPLORE THE MENU"} ↗</Link></div></section>
+        <section className="luxe-signatures luxe-container"><div className="luxe-section-top"><div><span className="luxe-eyebrow">02 / {es ? "SELECCIÓN DE LA CASA" : "HOUSE SELECTION"}</span><h2>{es ? <>Una carta que <em>inspira.</em></> : <>A menu that <em>inspires.</em></>}</h2></div><Link className="luxe-text-link" to="/menu">{es ? "VER CARTA COMPLETA" : "EXPLORE THE FULL MENU"} ↗</Link></div><div className="luxe-signature-grid">{chosen.map((meal,i) => <article className="luxe-signature-card" key={meal.id}><div className={`luxe-signature-photo luxe-signature-photo-${i+1}`} role="img" aria-label={meal.name[language]} /><div className="luxe-signature-meta"><span>0{i+1} / {meal.category}</span><span>{money(meal.price,language)}</span></div><h3>{meal.name[language]}</h3><p>{meal.description[language]}</p></article>)}</div></section>
+        <section className="luxe-manifesto"><div className="luxe-manifesto-photo" /><div className="luxe-manifesto-content"><span className="luxe-eyebrow">03 / {es ? "EL ESPÍRITU ASTER" : "THE ASTER SPIRIT"}</span><span className="luxe-quote-mark">“</span><h2>{es ? <>Hay momentos que <em>merecen</em> una mesa especial.</> : <>Some moments <em>deserve</em> a remarkable table.</>}</h2><p>{es ? "La verdadera elegancia es hacerte sentir en casa, sin dejar de sorprenderte." : "True elegance makes you feel at home, while still finding ways to surprise you."}</p><Link to="/reservations" className="luxe-button luxe-button-gold">{t("footerBook")} ↗</Link></div></section>
+    </main>;
 }

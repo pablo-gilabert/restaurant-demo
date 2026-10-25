@@ -7,7 +7,7 @@ const sampleMeals: Omit<Meal, "id">[] = [
     ["Cafetería", "Submarino", "Hot chocolate", "Leche caliente con chocolate", "Hot milk with chocolate", 5900],
     ["Desayunos", "Café con medialunas", "Coffee and croissants", "Café y dos medialunas", "Coffee and two Argentine croissants", 7900],
     ["Desayunos", "Tostado de jamón y queso", "Ham and cheese toastie", "Pan tostado con jamón y queso", "Toasted bread with ham and cheese", 8700],
-    ["Brunch", "Brunch Mathilde", "Mathilde brunch", "Infusión, tostadas y acompañamientos", "Hot drink, toast and assorted sides", 19800],
+    ["Brunch", "Brunch Maison", "Maison brunch", "Infusión, tostadas y acompañamientos", "Hot drink, toast and assorted sides", 19800],
     ["Tortas", "Cheesecake clásico", "Classic cheesecake", "Porción de cheesecake", "Slice of cheesecake", 7900],
     ["Tortas", "Cheesecake de pistacho", "Pistachio cheesecake", "Cheesecake con pistachos", "Cheesecake with pistachios", 8900],
     ["Cosas Dulces", "Chocotorta", "Chocolate cookie cake", "Postre argentino con galletitas y dulce de leche", "Argentine chocolate-cookie and dulce de leche cake", 7500],

@@ -1,7 +1,7 @@
 {
   "name": "restaurant-demo",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,5 +25,6 @@
     "sass": "^1.104.1",
     "typescript": "~6.0.2",
     "vite": "^8.3.5"
-  }
+  },
+  "description": "Editorial restaurant portfolio demo with browser-only booking management and bilingual themes"
 }

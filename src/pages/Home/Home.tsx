@@ -1,21 +1,25 @@
-import Footer from "../../components/Footer/Footer"
-import Header from "../../components/Header/Header"
-import Main from "../../components/Main/Main"
-import SEO from "../../components/SEO/SEO"
+import Header from "../../components/Header/Header";
+import Main from "../../components/Main/Main";
+import Footer from "../../components/Footer/Footer";
+import SEO from "../../components/SEO/SEO";
+import { useDisplay } from "../../context/DisplayContext";
 
-// Composes the public landing page from the hero, gallery and footer sections.
-const Home = () => {
-  return (
-    <>
-      <SEO
-        title="Mathilde Resto | Restaurante en Guernica"
-        description="Mathilde Resto, restaurante en Guernica. Disfrutá nuestra carta, desayunos, platos principales, postres y más."/>
+export default function Home() {
+    const { language } = useDisplay();
 
-      <Header/>
-      <Main/>
-      <Footer/>
-    </>
-  )
+    return (
+        <>
+            <SEO
+                title="Maison Aster | The art of savoring"
+                description={
+                    language === "es"
+                        ? "Maison Aster: una interpretación contemporánea del fine dining. Carta bilingüe, reservas de demostración y gestión guardada en localStorage."
+                        : "Maison Aster: a contemporary fine-dining concept with a bilingual menu, demo reservations and localStorage-based management."
+                }
+            />
+            <Header />
+            <Main />
+            <Footer />
+        </>
+    );
 }
-
-export default Home

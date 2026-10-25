@@ -6,12 +6,12 @@ import { categories, type Category } from "../../data/categories";
 import { money } from "../../data/DemoTypes";
 import { useDemo } from "../../context/DemoContext";
 import { useDisplay } from "../../context/DisplayContext";
-import "./_menu.scss";
+
 
 export default function Menu() {
     const { language, t } = useDisplay();
     const { database } = useDemo();
-    const [category, setCategory] = useState<Category | null>(null);
+    const [category, setCategory] = useState<Category | null>("Elaborados");
     const [dragging, setDragging] = useState(false);
     const listRef = useRef<HTMLElement>(null);
     const drag = useRef({ pointer: -1, x: 0, scroll: 0, moved: false });
@@ -27,8 +27,8 @@ export default function Menu() {
         return t(mapping[c]);
     };
     const displayed = category ? database.meals.filter(m => m.available && m.category === category) : [];
-    return <><SEO title={`${t("navMenu")} | Mathilde Resto`} description={t("menuTitle")} /><Navbar />
-        <main className="menu"><nav ref={listRef} className={`menuCategories ${dragging ? "menuCategories--dragging" : ""}`} aria-label={t("menuTitle")} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}><div className="menuCategoryList">{categories.map(c => <button type="button" className={`menuCategory ${c === category ? "menuCategory--active" : ""}`} key={c} onClick={() => selectCategory(c)} aria-pressed={c === category}>{categoryName(c)}</button>)}</div></nav>
-        <section className="menuContent" id="menuMeals"><h1 className="menuTitle">{t("menuTitle")}</h1>{category && displayed.length === 0 && <p className="menuMessage">{t("emptyCategory")}</p>}{category && <div className="meals">{displayed.map(m => <article className="meal" key={m.id}><h2 className="mealName">{m.name[language]}</h2>{m.description[language] && <p className="mealDescription">{m.description[language]}</p>}{m.price > 0 && <span className="mealPrice">{money(m.price, language)}</span>}<div className="mealDivider" aria-hidden="true" /></article>)}</div>}</section>
-        {!category && <p className="menuPrompt">{t("menuPrompt")}</p>}<p className="mathilde-disclaimer">{t("demoNotice")}</p></main><Footer /></>;
+    return <><SEO title={`${t("navMenu")} | Maison Aster`} description={t("menuTitle")} /><Navbar />
+        <main className="menu luxe-menu"><header className="luxe-inner-hero luxe-menu-head"><span className="luxe-eyebrow">01 / {language === "es" ? "LA CARTA" : "OUR MENU"}</span><h1>{language === "es" ? <>Cocina con <em>carácter.</em></> : <>Cuisine with <em>character.</em></>}</h1><p>{language === "es" ? "Una selección de sabores, texturas y momentos para descubrir a tu propio ritmo." : "An exploration of flavors, textures, and moments at your own pace."}</p></header><div className="luxe-menu-body"><div className="luxe-menu-categories-heading">{language === "es" ? "EXPLORÁ POR CATEGORÍA" : "EXPLORE BY CATEGORY"}</div><nav ref={listRef} className={`menuCategories ${dragging ? "menuCategories--dragging" : ""}`} aria-label={t("menuTitle")} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}><div className="menuCategoryList">{categories.map(c => <button type="button" className={`menuCategory ${c === category ? "menuCategory--active" : ""}`} key={c} onClick={() => selectCategory(c)} aria-pressed={c === category}>{categoryName(c)}</button>)}</div></nav>
+        <section className="menuContent" id="menuMeals"><div className="luxe-menu-heading"><span className="luxe-eyebrow">MAISON ASTER / MENU</span><h2 className="menuTitle">{category ? categoryName(category) : t("menuTitle")}</h2></div>{category && displayed.length === 0 && <p className="menuMessage">{t("emptyCategory")}</p>}{category && <div className="meals">{displayed.map(m => <article className="meal" key={m.id}><h2 className="mealName">{m.name[language]}</h2>{m.description[language] && <p className="mealDescription">{m.description[language]}</p>}{m.price > 0 && <span className="mealPrice">{money(m.price, language)}</span>}<div className="mealDivider" aria-hidden="true" /></article>)}</div>}</section>
+        {!category && <p className="menuPrompt">{t("menuPrompt")}</p>}<p className="mathilde-disclaimer">{t("demoNotice")}</p></div></main><Footer /></>;
 }
